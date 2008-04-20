@@ -1,6 +1,3 @@
-;; Set font to consolas
-;;(set-default-font "-*-Consolas-normal-r-normal-normal-14-90-120-120-c-*-fontset-uni")
-
 ;; Display preferences
 (setq inhibit-startup-message t)
 (menu-bar-mode nil)
@@ -18,7 +15,6 @@
 (setq save-abbrevs t)
 
 ;; ========== Place Backup Files in Specific Directory ==========
-;; Disable file backups
 (setq make-backup-files t)
 (setq version-control t)
 (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/.backups/"))))
@@ -26,8 +22,6 @@
 
 ;; ===== Make Text mode the default mode for new buffers =====
 (setq default-major-mode 'text-mode)
-; Text-based modes have longlines-mode enabled
-(add-hook 'text-mode-hook 'longlines-mode)
 
 ;; ====== Add enhancements, remove annoyances ======
 (iswitchb-mode t)
@@ -40,7 +34,7 @@
              (local-set-key (kbd "<down>") 'next-line)
              (local-set-key (kbd "C-z") 'bury-buffer)))
 
-; isearch + occur
+;; isearch + occur
 (defun isearch-occur ()
   "Invoke `occur' from within isearch."
   (interactive)
@@ -65,7 +59,6 @@
 (set-language-environment "utf-8")
 (prefer-coding-system 'utf-8)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;
 ; Configure org mode ;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -78,9 +71,6 @@
 
 ;; spell check
 (setq-default ispell-program-name "aspell")
-
-;; Setup Tramp mode to use PuTTY
-;;(setq tramp-default-method "pscp")
 
 ;; Open simulacra
 (defun simulacra ()
@@ -106,7 +96,6 @@
 ;; anything config
 (require 'anything-config)
 
-
 (setq anything-sources (list anything-c-source-buffers
                              anything-c-source-file-name-history
                              anything-c-source-emacs-commands
@@ -130,5 +119,4 @@
 (server-start)
 
 (message "Loaded init file.")
-
 (provide 'ankit-init)

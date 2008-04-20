@@ -11,10 +11,8 @@
 (defalias 'xml-mode 'nxml-mode)
 
 ;; javascript mode
-;; (autoload 'javascript-mode "javascript-mode" nil t)
-;; (add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
 (autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" js2-mode))
+(add-to-list 'auto-mode-alist '("js$" . js2-mode))
 
 ;; ===== Set standard indent to 2 rather that 4 ====
 (setq standard-indent 2)
@@ -37,7 +35,6 @@
            (cons '("\\.py$" . python-mode) auto-mode-alist))
      (setq interpreter-mode-alist
            (cons '("python" . python-mode) interpreter-mode-alist))
-
 
 ;; Setup SLIME
 ;; (add-to-list 'load-path "d:/usr/emacs/slime-2.0/")  ; your SLIME directory
@@ -83,17 +80,17 @@
 (global-set-key "\M- " 'hippie-expand)
 
 ;; Rails
-(add-to-list 'load-path "~/config/elisp/ruby-mode")
-(add-to-list 'load-path "~/config/elisp/emacs-rails")
-(require 'rails)
+;(add-to-list 'load-path "~/config/elisp/ruby-mode")
+;(add-to-list 'load-path "~/config/elisp/emacs-rails")
+;(require 'rails)
 
-;; temporary hack for iPodcast
-(defun delete-trailing-whitespace ()
-  (interactive))
-(setq standard-indent 8)
-(setq-default indent-tabs-mode 1)
-(defun untabify (start end)
-  (interactive))
+;; temporary hack for cases when not modifying whitespace is important
+;; (defun delete-trailing-whitespace ()
+;;   (interactive))
+;; (setq standard-indent 8)
+;; (setq-default indent-tabs-mode 1)
+;; (defun untabify (start end)
+;;   (interactive))
 
 ;; Follow PEAR coding guidelines for PHP
 (defun php-mode-hook ()
@@ -106,7 +103,6 @@
               (string-match "\.php$" (buffer-file-name))))))
 
 ;; c# mode
-
 (require 'csharp-mode)
 (autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
 (setq auto-mode-alist
@@ -123,4 +119,3 @@
 (add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
 
 (provide 'programming)
-
