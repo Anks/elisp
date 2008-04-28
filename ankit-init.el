@@ -118,5 +118,9 @@
 
 (server-start)
 
+;; make emacs use the clipboard
+(setq x-select-enable-clipboard t)
+(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+
 (message "Loaded init file.")
 (provide 'ankit-init)
