@@ -330,6 +330,11 @@ Attributes:
   character typed, only if the user hesitates a bit.")
 
 
+(defvar anything-samewindow nil
+  "If t then Anything doesn't pop up a new window, it uses the
+current window to show the candidates.")
+
+
 (defvar anything-source-filter nil
   "A list of source names to be displayed. Other sources won't
 appear in the search results. If nil then there is no filtering.
@@ -377,6 +382,8 @@ See also `anything-set-source-filter'.")
     ;; Binding M-s is used instead of C-s, because C-s has a binding in
     ;; iswitchb.  You can rebind it, of course.
     (define-key map (kbd "M-s") 'anything-isearch)
+    ;; unbind C-r to prevent problems during anything-isearch
+    (define-key map (kbd "C-r") nil)
     map)
   "Keymap for anything.")
 
@@ -699,7 +706,10 @@ the real value in a text property."
     (add-hook 'post-command-hook 'anything-check-minibuffer-input)
 
     (anything-initialize)
-    (pop-to-buffer anything-buffer)
+
+    (if anything-samewindow
+        (switch-to-buffer anything-buffer)
+      (pop-to-buffer anything-buffer))
 
     (unwind-protect
         (progn
@@ -879,7 +889,8 @@ action."
 (defun anything-move-selection (unit direction)
   "Move the selection marker to a new position determined by
 UNIT and DIRECTION."
-  (unless (= (buffer-size (get-buffer anything-buffer)) 0)
+  (unless (or (= (buffer-size (get-buffer anything-buffer)) 0)
+              (not (get-buffer-window anything-buffer 'visible)))
     (save-selected-window
       (select-window (get-buffer-window anything-buffer 'visible))
 
@@ -1359,11 +1370,10 @@ occurrence of the current pattern.")
   "Cancel Anything isearch."
   (interactive)
   (anything-isearch-cleanup)
-  (with-selected-window (get-buffer-window anything-buffer 'visible)
-    (goto-char anything-isearch-original-point)
-    ;(goto-char (point-min))
-    ;(forward-line)
-    (anything-mark-current-line)))
+  (when (get-buffer-window anything-buffer 'visible)
+    (with-selected-window (get-buffer-window anything-buffer 'visible)
+      (goto-char anything-isearch-original-point)
+      (anything-mark-current-line))))
 
 
 (defun anything-isearch-cleanup ()
@@ -1484,7 +1494,13 @@ shown yet and bind anything commands in iswitchb."
   (unless (or (equal (buffer-size (get-buffer anything-buffer)) 0)
               anything-iswitchb-frame-configuration)
     (setq anything-iswitchb-frame-configuration (current-frame-configuration))
-    (save-selected-window (pop-to-buffer anything-buffer))
+
+    (save-selected-window 
+      (if (not anything-samewindow)
+          (pop-to-buffer anything-buffer)
+
+        (select-window (get-lru-window))
+        (switch-to-buffer anything-buffer)))
 
     (with-current-buffer (window-buffer (active-minibuffer-window))
       (let* ((anything-prefix "anything-")

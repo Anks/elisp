@@ -11,6 +11,7 @@
 ;;     Mathias Dahl <mathias.dahl@gmail.com>
 ;;     Bill Clementson <billclem@gmail.com>
 ;;     Stefan Kamphausen <ska@skamphausen.de>
+;;     Drew Adams <drew.adams@oracle.com>
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -59,7 +60,7 @@
 
 ;;; Version
 
-(defvar anything-c-version "<2007-08-24 Fri 18:24>"
+(defvar anything-c-version "<2008-02-18 Mon 21:05>"
   "The version of anything-config.el, or better the date of the
 last change.")
 
@@ -103,14 +104,16 @@ If it's nil anything uses some bindings that don't conflict with
           (define-key map (kbd "M-p")     'anything-previous-history-element)
           (define-key map (kbd "M-n")     'anything-next-history-element)
           (define-key map (kbd "C-s")     'anything-isearch)
+          (define-key map (kbd "C-r")     'undefined)
           map))
 
   (setq anything-isearch-map
-        (let ((map (make-sparse-keymap)))
+        (let ((map (copy-keymap (current-global-map))))
           (define-key map (kbd "<return>")    'anything-isearch-default-action)
           (define-key map (kbd "<tab>")       'anything-isearch-select-action)
           (define-key map (kbd "C-g")         'anything-isearch-cancel)
           (define-key map (kbd "C-s")         'anything-isearch-again)
+          (define-key map (kbd "C-r")         'undefined)
           (define-key map (kbd "<backspace>") 'anything-isearch-delete)
           ;; add printing chars
           (let ((i ?\s))
@@ -240,6 +243,7 @@ source.")
                        (while (re-search-forward info-topic-regexp nil t)
                          (add-to-list 'topics (match-string-no-properties 1)))
                        (goto-char (point-min))
+                       (Info-exit)
                        topics)))))))
     (action . (("Show with Info" .(lambda (node-str)
                                     (info (replace-regexp-in-string "^[^:]+: "
@@ -331,11 +335,11 @@ word in the function's name, e.g. \"bb\" is an abbrev for
 
 (defvar anything-c-source-bookmarks
   '((name . "Bookmarks")
+    (init . (lambda ()
+              (require 'bookmark)))
     (candidates . bookmark-all-names)
-    (volatile)
-    (action . (("Jump to Bookmark" . bookmark-jump))))
+    (type . bookmark))
   "See (info \"(emacs)Bookmarks\").")
-
 
 ;;;; Picklist
 
@@ -351,8 +355,8 @@ word in the function's name, e.g. \"bb\" is an abbrev for
 (defvar anything-c-source-imenu
   '((name . "Imenu")
     (init . (lambda ()
-                   (setq anything-c-imenu-current-buffer
-                         (current-buffer))))
+              (setq anything-c-imenu-current-buffer
+                    (current-buffer))))
     (candidates . (lambda ()
                     (condition-case nil
                         (with-current-buffer anything-c-imenu-current-buffer
@@ -394,7 +398,7 @@ word in the function's name, e.g. \"bb\" is an abbrev for
 
 (defvar anything-c-locate-options (if (eq system-type 'darwin)
                                       '("locate")
-                                    '("locate" "-i " "-r"))
+                                    '("locate" "-i" "-r"))
   "A list where the `car' is the name of the locat program
 followed by options.  The search pattern will be appended, so the
 \"-r\" option should be the last option.")
@@ -404,7 +408,7 @@ followed by options.  The search pattern will be appended, so the
     (candidates . (lambda ()
                     (apply 'start-process "locate-process" nil
                            (append anything-c-locate-options
-                                   anything-pattern))))
+                                   (list anything-pattern)))))
     (type . file)
     (requires-pattern . 3)
     (delayed))
@@ -595,6 +599,30 @@ removed."
       (setq start (1+ (match-end 1))))
     items))
 
+;;;; Jabber Contacts (jabber.el)
+
+(defun anything-c-jabber-online-contacts ()
+  "List online Jabber contacts."
+  (let (jids)
+    (dolist (item (jabber-concat-rosters) jids)
+      (when (get item 'connected)
+        (push (if (get item 'name)
+                  (cons (get item 'name) item)
+                (cons (symbol-name item) item)) jids)))))
+
+(defvar anything-c-source-jabber-contacts
+  '((name . "Jabber Contacts")
+    (init . (lambda () (require 'jabber)))
+    (candidates . (lambda ()
+                    (mapcar
+                     'car
+                     (anything-c-jabber-online-contacts))))
+    (action . (lambda (x)
+                (jabber-chat-with
+                 (jabber-read-account)
+                 (symbol-name
+                  (cdr (assoc x (anything-c-jabber-online-contacts)))))))))
+
 ;;; Type Action helpers
 
 ;;;; Files
@@ -780,15 +808,26 @@ skipped."
           finally (return (nreverse filtered-files)))))
 
 (defun anything-c-shorten-home-path (files)
-  "Replaces /home/user with $HOME."
+  "Replaces /home/user with ~."
   (mapcar (lambda (file)
-            ;; replace path of HOME directory in paths with the string <home>
             (let ((home (replace-regexp-in-string "\\\\" "/" ; stupid Windows...
                                                   (getenv "HOME"))))
               (if (string-match home file)
-                  (cons (replace-match "$HOME" nil nil file) file)
+                  (cons (replace-match "~" nil nil file) file)
                 file)))
           files))
+
+;;;; Functions
+
+(defun anything-c-mark-interactive-functions (functions)
+  "Mark interactive functions (commands) with (i) after the function name."
+  (let (list)
+    (loop for function in functions
+          do (push (cons (concat function
+                                 (when (commandp (intern function)) " (i)"))
+                         function)
+                   list)
+          finally (return (nreverse list)))))
 
 ;;; Filtered Candidate Transformers
 
@@ -986,28 +1025,38 @@ This function allows easy sequencing of transformer functions."
 ;;;; Type Attributes
 
 (setq anything-type-attributes
-      '((buffer (action ("Switch to buffer" . switch-to-buffer)
-                        ("Switch to buffer other window" . switch-to-buffer-other-window)
-                        ("Switch to buffer other frame" . switch-to-buffer-other-frame)
-                        ("Display buffer"   . display-buffer)
-                        ("Kill buffer"      . kill-buffer)))
-        (file (action ("Find file" . find-file)
-                      ("Find file other window" . find-file-other-window)
-                      ("Find file other frame" . find-file-other-frame)
-                      ("Open dired in file's directory" . anything-c-open-dired)
-                      ("Delete file" . anything-c-delete-file)
-                      ("Open file externally" . anything-c-open-file-externally)
-                      ("Open file with default tool" . anything-c-open-file-with-default-tool))
-              (action-transformer . (lambda (actions candidate)
-                                      (anything-c-compose
-                                       (list actions candidate)
-                                       '(anything-c-transform-file-load-el
-                                         anything-c-transform-file-browse-url))))
-              (candidate-transformer . (lambda (candidates)
-                                         (anything-c-compose
-                                          (list candidates)
-                                          '(anything-c-shadow-boring-files
-                                            anything-c-shorten-home-path)))))
+      `((buffer
+         (action
+          ,@(if pop-up-frames
+                '(("Switch to buffer other window" . switch-to-buffer-other-window)
+                  ("Switch to buffer" . switch-to-buffer))
+              '(("Switch to buffer" . switch-to-buffer)
+                ("Switch to buffer other window" . switch-to-buffer-other-window)
+                ("Switch to buffer other frame" . switch-to-buffer-other-frame)))
+          ("Display buffer"   . display-buffer)
+          ("Kill buffer"      . kill-buffer)))
+        (file
+         (action
+          ,@(if pop-up-frames
+                '(("Find file other window" . find-file-other-window)
+                  ("Find file" . find-file))
+              '(("Find file" . find-file)
+                ("Find file other window" . find-file-other-window)
+                ("Find file other frame" . find-file-other-frame)))
+          ("Open dired in file's directory" . anything-c-open-dired)
+          ("Delete file" . anything-c-delete-file)
+          ("Open file externally" . anything-c-open-file-externally)
+          ("Open file with default tool" . anything-c-open-file-with-default-tool))
+         (action-transformer . (lambda (actions candidate)
+                                 (anything-c-compose
+                                  (list actions candidate)
+                                  '(anything-c-transform-file-load-el
+                                    anything-c-transform-file-browse-url))))
+         (candidate-transformer . (lambda (candidates)
+                                    (anything-c-compose
+                                     (list candidates)
+                                     '(anything-c-shadow-boring-files
+                                       anything-c-shorten-home-path)))))
         (command (action ("Call interactively" . (lambda (command-name)
                                                    (call-interactively (intern command-name))))
                          ("Describe command" . (lambda (command-name)
@@ -1027,14 +1076,20 @@ This function allows easy sequencing of transformer functions."
                   (action-transformer . (lambda (actions candidate)
                                           (anything-c-compose
                                            (list actions candidate)
-                                           '(anything-c-transform-function-call-interactively)))))
+                                           '(anything-c-transform-function-call-interactively))))
+                  (candidate-transformer . (lambda (candidates)
+                                             (anything-c-compose
+                                              (list candidates)
+                                              '(anything-c-mark-interactive-functions)))))
         (sexp (action ("Eval s-expression" . (lambda (c)
                                                (eval (read c))))
                       ("Add s-expression to kill ring" . kill-new))
               (action-transformer . (lambda (actions candidate)
                                       (anything-c-compose
                                        (list actions candidate)
-                                       '(anything-c-transform-sexp-eval-command-sexp)))))))
+                                       '(anything-c-transform-sexp-eval-command-sexp)))))
+        (bookmark (action ("Jump to bookmark" . bookmark-jump)
+                          ("Delete bookmark" . bookmark-delete)))))
 
 ;;; Provide anything-config
 
