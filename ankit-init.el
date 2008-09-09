@@ -99,6 +99,8 @@
 
 (setq anything-sources (list anything-c-source-buffers
                              anything-c-source-file-name-history
+                             anything-c-source-complex-command-history
+                             anything-c-source-imenu
                              anything-c-source-emacs-commands
                              anything-c-source-locate))
 
