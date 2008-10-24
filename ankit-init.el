@@ -64,10 +64,12 @@
 ; Configure org mode ;
 ;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'org)
+(setq load-path (cons "~/config/elisp/org-6.10/lisp/" load-path))
+(require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
 (setq org-log-done t)
 
 ;; spell check
@@ -105,11 +107,11 @@
                              anything-c-source-locate))
 
 (setq anything-filtered-candidate-transformers
-      '((buffer   . anything-adaptive-sort)
-        (file     . anything-adaptive-sort)
-        (command  . anything-adaptive-sort)
-        (function . anything-adaptive-sort)
-        (sexp     . anything-adaptive-sort)))
+      '((buffer   . anything-c-adaptive-sort)
+        (file     . anything-c-adaptive-sort)
+        (command  . anything-c-adaptive-sort)
+        (function . anything-c-adaptive-sort)
+        (sexp     . anything-c-adaptive-sort)))
 
 (global-set-key (kbd "<C-menu>") 'anything)
 
