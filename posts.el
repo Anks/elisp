@@ -382,4 +382,16 @@ on top of html-mode each time a blog post is created."
   (font-lock-add-keywords nil markdown-mode-font-lock-keywords-basic))
 
 
+;;; Amazon
+
+(defcustom amazon-associates-code "simulacra-20"
+  "Associates code for Amazon.com"
+  :type 'string
+  :group 'posts)
+
+(defun add-amazon-link (isbn) 
+  "Read an ISBN, and insert a link to Amazon.com for that ISBN with the appropriate associate code"
+  (interactive "sISBN: ")
+  (insert (concat "http://amazon.com/o/asin/" isbn "/ref=nosim/" amazon-associates-code)))
+
 (provide 'posts)
