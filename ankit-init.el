@@ -53,8 +53,7 @@
 
 ;; Load and Set the colour theme
 (require 'color-theme)
-(require 'color-theme-tango)
-(color-theme-tango)
+(color-theme-charcoal-black)
 
 ;; Set proper encodings... UTF-8 all the way
 (set-language-environment "utf-8")
