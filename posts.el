@@ -7,6 +7,7 @@
   "Blog posting stuff."
   :group 'languages)
 
+(add-to-list 'load-path "~/config/elisp/markdown-mode")
 (require 'markdown-mode)
 
 ;;;;;;;;;;;;;; Command paths ;;;;;;;;;;;;;;
