@@ -12,10 +12,10 @@
 
 ;;;;;;;;;;;;;; Command paths ;;;;;;;;;;;;;;
 
-(defcustom markdown-command-string "markdown"
-  "Shell command for Markdown filter"
-  :type 'string
-  :group 'posts)
+;(defcustom markdown-command-string "markdown"
+;  "Shell command for Markdown filter"
+;  :type 'string
+;  :group 'posts)
 
 ;;;;;;;;;;;;;; Smart quotes  ;;;;;;;;;;;;;;
 

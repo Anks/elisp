@@ -6,7 +6,7 @@
 ;;             Alex Schroeder <alex@gnu.org>
 ;;             Chong Yidong <cyd@stupidchicken.com>
 ;; Maintainer: Chong Yidong <cyd@stupidchicken.com>
-;; Version: 2.3.3
+;; Version: 2.3.4
 ;; Keywords: convenience, wp
 
 ;; This file is free software; you can redistribute it and/or modify
@@ -413,6 +413,22 @@ that has changed."
   "Perform line wrapping on the parts of the buffer that have changed.
 This is called by `post-command-hook' after each command."
   (when longlines-wrap-beg
+    (cond ((or (eq this-command 'yank)
+               (eq this-command 'yank-pop))
+           (longlines-decode-region (point) (mark t))
+           (if longlines-showing
+               (longlines-show-region (point) (mark t))))
+	  (longlines-showing
+	   (cond ((eq this-command 'newline)
+		  (save-excursion
+		    (if (search-backward "\n" nil t)
+			(longlines-show-region
+			 (match-beginning 0) (match-end 0)))))
+		 ((eq this-command 'open-line)
+		  (save-excursion
+		    (if (search-forward "\n" nil t)
+			(longlines-show-region
+			 (match-beginning 0) (match-end 0))))))))
     (unless (or (eq this-command 'fill-paragraph)
                 (eq this-command 'fill-region))
       (longlines-wrap-region longlines-wrap-beg longlines-wrap-end))
@@ -430,14 +446,6 @@ This is called by `window-size-change-functions'."
 
 ;; Advice for editing functions
 
-(defadvice newline (after newline-shows-hard-ones activate)
-  "When a hard newline is inserted, it will also be highlighted.
-This happens only if `longlines-showing' is non-nil."
-  (save-excursion
-    (when (and longlines-showing
-	       (search-backward "\n" nil t))
-      (longlines-show-region (match-beginning 0) (match-end 0)))))
-
 (defadvice kill-region (before longlines-encode-kill activate)
   "If the buffer is in `longlines-mode', remove all soft newlines."
   (when longlines-mode
@@ -454,20 +462,6 @@ This happens only if `longlines-showing' is non-nil."
           (ad-set-arg 1 (point-max))
           ad-do-it))
     ad-do-it))
-
-(defadvice yank (after longlines-decode-kill activate)
-  "If the buffer is in `longlines-mode', mark all newlines as hard."
-  (when longlines-mode
-    (longlines-decode-region (point) (mark t))
-    (if longlines-showing
-        (longlines-show-hard-newlines))))
-
-(defadvice yank-pop (after longlines-decode-kill activate)
-  "If the buffer is in `longlines-mode', mark all newlines as hard."
-  (when longlines-mode
-    (longlines-decode-region (point) (mark t))
-    (if longlines-showing
-        (longlines-show-hard-newlines))))
 
 ;; Loading and saving
 

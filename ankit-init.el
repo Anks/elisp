@@ -84,7 +84,7 @@
   (interactive)
   (let ((title (read-string "Post title? ")))
     (progn
-      (find-file (concat "~/writing/posts/" title ".post"))
+      (find-file (concat "~/Documents/writing/posts/" title ".post"))
       (insert title)
       (newline)
       (insert "--------------------------------------")
@@ -95,21 +95,21 @@
 (recentf-mode t)
 
 ;; anything config
-(require 'anything-config)
+;(require 'anything-config)
 
-(setq anything-sources (list anything-c-source-buffers
-                             anything-c-source-file-name-history
-                             anything-c-source-complex-command-history
-                             anything-c-source-imenu
-                             anything-c-source-emacs-commands
-                             anything-c-source-locate))
+;; (setq anything-sources (list anything-c-source-buffers
+;;                              anything-c-source-file-name-history
+;;                              anything-c-source-complex-command-history
+;;                              anything-c-source-imenu
+;;                              anything-c-source-emacs-commands
+;;                              anything-c-source-locate))
 
-(setq anything-filtered-candidate-transformers
-      '((buffer   . anything-c-adaptive-sort)
-        (file     . anything-c-adaptive-sort)
-        (command  . anything-c-adaptive-sort)
-        (function . anything-c-adaptive-sort)
-        (sexp     . anything-c-adaptive-sort)))
+;; (setq anything-filtered-candidate-transformers
+;;       '((buffer   . anything-c-adaptive-sort)
+;;         (file     . anything-c-adaptive-sort)
+;;         (command  . anything-c-adaptive-sort)
+;;         (function . anything-c-adaptive-sort)
+;;         (sexp     . anything-c-adaptive-sort)))
 
 (global-set-key (kbd "<C-menu>") 'anything)
 
@@ -126,7 +126,13 @@
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
 ;; twit.el
-(load-library "twit")
+;;(load-library "twit")
+
+(load-library "deft")
+(global-set-key [f8] 'deft)
+(setq deft-extension "txt")
+(setq deft-directory "~/Dropbox/deft")
+(setq deft-text-mode 'markdown-mode)
 
 (message "Loaded init file.")
 (provide 'ankit-init)

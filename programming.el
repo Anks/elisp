@@ -11,14 +11,42 @@
 (defalias 'xml-mode 'nxml-mode)
 
 ;; javascript mode
+
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("js$" . js2-mode))
 
+(defvar my-global-externs '("require" "module" "console"))
+
+(defun my-js2-mode-hook ()
+  (require 'js2-highlight-vars)
+  (if (featurep 'js2-highlight-vars)
+    (js2-highlight-vars-mode))
+  (message "My JS2 hook"))
+
+(setq js2-global-externs my-global-externs)
+
+(add-hook 'js2-mode-hook 'my-js2-mode-hook)
+
 ;; ===== Set standard indent to 2 rather that 4 ====
-(setq standard-indent 2)
+
+(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
+
+;; Bind the TAB key
+;(global-set-key (kbd "TAB") 'self-insert-command)
+
+;; Set the tab width
+(setq default-tab-width 2)
+(setq tab-width 2)
+(setq c-basic-indent 2)
+
+;; end via
 
 ;; ===== Turn off tab character =====
-;(setq-default indent-tabs-mode nil)
+;;(setq-default indent-tabs-mode nil)
+
+;; use tabs, one tab = two space characters
+;;(setq-default indent-tabs-mode 1 setq tab-width 4)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;
@@ -39,9 +67,9 @@
 ;; Setup SLIME
 ;; (add-to-list 'load-path "d:/usr/emacs/slime-2.0/")  ; your SLIME directory
 ;; (setq inferior-lisp-program "d:/usr/bin/clisp-2.41/clisp.exe") ; your Lisp system
-(setq inferior-lisp-program "sbcl")
-(require 'slime)
-(slime-setup)
+;(setq inferior-lisp-program "sbcl")
+;(require 'slime)
+;(slime-setup)
 
 ;; Inline emacs eval, From emacs.wordpress.com
 (defun fc-eval-and-replace ()
@@ -95,27 +123,27 @@
 ;; Follow PEAR coding guidelines for PHP
 (defun php-mode-hook ()
   (setq tab-width 4
-        c-basic-offset 4
+        c-basic-offset 2
         c-hanging-comment-ender-p nil
-        indent-tabs-mode
+        indent-tabs-mode nil
         (not
          (and (string-match "/\\(PEAR\\|pear\\)/" (buffer-file-name))
               (string-match "\.php$" (buffer-file-name))))))
 
 ;; c# mode
-(require 'csharp-mode)
-(autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
-(setq auto-mode-alist
-      (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
+;(require 'csharp-mode)
+;(autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
+;(setq auto-mode-alist
+;      (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
 
 ;; Follow Mono guidelines for C#
-(defun my-csharp-mode-hook ()
-  (message "CSharp Mode")
-  (setq tab-width 8
-        standard-indent 8
-        c-basic-offset 8
-        c-hanging-comment-ender-p nil
-        indent-tabs-mode t))
-(add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
+;(defun my-csharp-mode-hook ()
+;  (message "CSharp Mode")
+;  (setq tab-width 8
+;        standard-indent 8
+;        c-basic-offset 8
+;        c-hanging-comment-ender-p nil
+;        indent-tabs-mode t))
+;(add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
 
 (provide 'programming)
