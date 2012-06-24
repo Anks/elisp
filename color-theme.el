@@ -1,5 +1,10 @@
 ;;; color-theme.el --- install color themes
 
+(unless (fboundp 'plist-to-alist)
+  (defun plist-to-alist (lst)
+    (loop for (a b) on lst by 'cddr
+       collect (cons a b))))
+
 ;; Copyright (C) 1999, 2000  Jonadab the Unsightly One <jonadab@bright.net>
 ;; Copyright (C) 2000, 2001, 2002, 2003  Alex Schroeder <alex@gnu.org>
 ;; Copyright (C) 2003, 2004  Xavier Maillard <zedek@gnu-rox.org>
@@ -586,8 +591,8 @@ libraries are mainly useful for color theme authors."
   (color-theme-mode))
 
 (require 'easymenu)
-(easy-menu-add-item nil '("tools") "--")
-(easy-menu-add-item  nil '("tools")
+(easy-menu-add-item nil '("Tools") "--")
+(easy-menu-add-item  nil '("Tools")
   ["Color Themes" color-theme-select t])
 
 (defun color-theme-mode ()

@@ -1,4 +1,5 @@
 ;; Display preferences
+(setq ring-bell-function 'ignore)
 (setq inhibit-startup-message t)
 (menu-bar-mode nil)
 (toggle-scroll-bar nil)
@@ -53,7 +54,10 @@
 
 ;; Load and Set the colour theme
 (require 'color-theme)
+(setq load-path (cons "~/config/elisp/emacs-color-theme-solarized" load-path))
+(require 'color-theme-solarized)
 (color-theme-charcoal-black)
+
 
 ;; Set proper encodings... UTF-8 all the way
 (set-language-environment "utf-8")
@@ -94,6 +98,10 @@
 ;; enable history of recent files
 (recentf-mode t)
 
+(add-to-list 'load-path "~/config/elisp/helm")
+(require 'helm-config)
+;(global-set-key (kbd "<Super-|>") 'helm-mini)
+
 ;; anything config
 ;(require 'anything-config)
 
@@ -111,7 +119,7 @@
 ;;         (function . anything-c-adaptive-sort)
 ;;         (sexp     . anything-c-adaptive-sort)))
 
-(global-set-key (kbd "<C-menu>") 'anything)
+;; (global-set-key (kbd "<C-menu>") 'anything)
 
 (fset 'ank-grep-for-text
    [?\C-z ?g ?r ?e ?p ?  ?- ?i ?H ?R ?\S-  ?\" ?\C-y ?\" ?  ?* return])
@@ -119,11 +127,9 @@
 (fset 'ank-add-quotes
    [?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?r ?e ?g tab return ?^ return ?> return])
 
-(server-start)
-
 ;; make emacs use the clipboard
-(setq x-select-enable-clipboard t)
-(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+;(setq x-select-enable-clipboard t)
+;(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
 ;; twit.el
 ;;(load-library "twit")
@@ -133,6 +139,21 @@
 (setq deft-extension "txt")
 (setq deft-directory "~/Dropbox/deft")
 (setq deft-text-mode 'markdown-mode)
+
+;; IDO mode
+(ido-mode t)
+(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
+
+;; This tab override shouldn't be necessary given ido's default
+;; configuration, but minibuffer-complete otherwise dominates the
+;; tab binding because of my custom tab-completion-everywhere
+;; configuration.
+(add-hook 'ido-setup-hook
+          (lambda ()
+            (define-key ido-completion-map [tab] 'ido-complete)))
+
+
+(server-start)
 
 (message "Loaded init file.")
 (provide 'ankit-init)

@@ -14,13 +14,13 @@
 
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("js$" . js2-mode))
+(add-to-list 'load-path "~/config/elisp/js2-refactor/")
+(add-to-list 'load-path "~/config/elisp/mark-multiple/")
 
 (defvar my-global-externs '("require" "module" "console"))
 
 (defun my-js2-mode-hook ()
-  (require 'js2-highlight-vars)
-  (if (featurep 'js2-highlight-vars)
-    (js2-highlight-vars-mode))
+  (require 'js2-refactor)
   (message "My JS2 hook"))
 
 (setq js2-global-externs my-global-externs)
