@@ -22,7 +22,8 @@
 (setq delete-old-versions t)
 
 ;; ===== Make Text mode the default mode for new buffers =====
-(setq default-major-mode 'text-mode)
+;; (setq default-major-mode 'text-mode)
+(setq major-mode 'text-mode)
 
 ;; ====== Add enhancements, remove annoyances ======
 (iswitchb-mode t)
@@ -54,8 +55,8 @@
 
 ;; Load and Set the colour theme
 (require 'color-theme)
-(setq load-path (cons "~/config/elisp/emacs-color-theme-solarized" load-path))
-(require 'color-theme-solarized)
+;(setq load-path (cons "~/config/elisp/emacs-color-theme-solarized" load-path))
+;(require 'color-theme-solarized)
 (color-theme-charcoal-black)
 
 
@@ -98,8 +99,8 @@
 ;; enable history of recent files
 (recentf-mode t)
 
-(add-to-list 'load-path "~/config/elisp/helm")
-(require 'helm-config)
+;(add-to-list 'load-path "~/config/elisp/helm")
+;(require 'helm-config)
 ;(global-set-key (kbd "<Super-|>") 'helm-mini)
 
 ;; anything config
@@ -141,16 +142,16 @@
 (setq deft-text-mode 'markdown-mode)
 
 ;; IDO mode
-(ido-mode t)
-(setq ido-enable-flex-matching t) ; fuzzy matching is a must have
+;; (ido-mode t)
+;; (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
 
 ;; This tab override shouldn't be necessary given ido's default
 ;; configuration, but minibuffer-complete otherwise dominates the
 ;; tab binding because of my custom tab-completion-everywhere
 ;; configuration.
-(add-hook 'ido-setup-hook
-          (lambda ()
-            (define-key ido-completion-map [tab] 'ido-complete)))
+;; (add-hook 'ido-setup-hook
+;;           (lambda ()
+;;             (define-key ido-completion-map [tab] 'ido-complete)))
 
 
 (server-start)

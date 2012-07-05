@@ -14,8 +14,12 @@
 
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("js$" . js2-mode))
+(add-to-list 'load-path "~/config/elisp/expand-region/")
 (add-to-list 'load-path "~/config/elisp/js2-refactor/")
 (add-to-list 'load-path "~/config/elisp/mark-multiple/")
+
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 (defvar my-global-externs '("require" "module" "console"))
 
@@ -36,7 +40,6 @@
 ;(global-set-key (kbd "TAB") 'self-insert-command)
 
 ;; Set the tab width
-(setq default-tab-width 2)
 (setq tab-width 2)
 (setq c-basic-indent 2)
 
