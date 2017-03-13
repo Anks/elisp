@@ -13,6 +13,8 @@
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
+(horizontal-scroll-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; Do not blink the cursor
 (blink-cursor-mode -1)
@@ -29,9 +31,6 @@
 
 ;; Turn off the beep completely
 (setq ring-bell-function 'ignore)
-
-;; Highlight matching parentheses when the point is on them.
-(show-paren-mode 1)
 
 ;; TODO Move to hydra
 ;; ;; Easy zoom-in and zoom-out via <f2>g & <f2>l

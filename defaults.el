@@ -1,4 +1,5 @@
 ;; Some of these are from magnar's sane-defaults.el
+;; Also from technomancy/better-defaults
 
 ;; Use Trash in dired, etc
 (setq delete-by-moving-to-trash t)
@@ -19,5 +20,16 @@
 ;; Add parts of each file's directory to the buffer name if not unique
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
+
+;; saveplace
+(require 'saveplace)
+(setq save-place-file (concat user-emacs-directory "places"))
+(save-place-mode 1)
+
+;; Use F5 to refresh buffer
+(global-set-key (kbd "<f5>") 'revert-buffer)
+
+;; Prevent stale bytecode from being loaded
+(setq load-prefer-newer t)
 
 (provide 'defaults)

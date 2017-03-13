@@ -13,6 +13,9 @@
 (setq org-special-ctrl-e 't)
 (setq org-return-follows-link 't)
 
+;;; Export options
+(setq org-export-html-postamble nil)
+
 ;;; Configure org-capture
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Tasks")
@@ -24,6 +27,20 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
+
+;; TODO Figure out a good way to start a org-caputre workflow with fullscreen emacs
+;; (use-package noflet
+;;   :ensure t )
+
+;; (defun make-capture-frame ()
+;;   "Create a new frame and run org-capture."
+;;   (interactive)
+;;   (make-frame '((name . "capture")))
+;;   (select-frame-by-name "capture")
+;;   (delete-other-windows)
+;;   (noflet ((switch-to-buffer-other-window (buf) (switch-to-buffer buf)))
+;;           (org-capture)))
+
 
 ;; Exports
 (provide 'setup-org)

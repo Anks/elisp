@@ -45,7 +45,7 @@
   (setq deft-directory "~/Dropbox/deft")
   (setq deft-text-mode 'markdown-mode)
   :bind (([f8] . deft)))
-  
+
 
 ;; Customise deft to remove file-vars from the titile line.
 ;; I like using org-mode in some long-form files, but deft displays the
@@ -55,10 +55,19 @@
   (replace-regexp-in-string "-\\*-.*-\\*-" "" (deft-strip-title str)))
 (setq deft-parse-title-function 'deft-title-fn-strip-file-vars)
 
+
+;; which key
+;; Shows a help popup when you press the first half of a keybinding
+;; Added Mar '17
+;; Not sure if it will stay for long term
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode))
+
 (setq server-socket-dir (format "/tmp/emacs%d" (user-uid)))
 (server-start)
 
 
 (message "Loaded init file.")
 (provide 'ankit-init)
-
