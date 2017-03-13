@@ -10,28 +10,30 @@
 ;(require 'yasnippet)
 ;(yas-global-mode 1)
 
-(require 'move-text)
-(global-set-key (kbd "<C-S-down>") 'move-text-down)
-(global-set-key (kbd "<C-S-up>") 'move-text-up)
-
 ;; xml-mode
 (autoload 'nxml-mode "nxml-mode" nil t)
 (defalias 'xml-mode 'nxml-mode)
 
-(require 'multiple-cursors)
+;; multiple-cursors
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+	 ("C->"         . mc/mark-next-like-this)
+	 ("C-<"         . mc/mark-previous-like-this)
+	 ("C-c C-<"     . mc/mark-all-like-this)))
 
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; javascript mode
-(require 'js2-mode)
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("js$" . js2-mode))
+(use-package js2-mode
+  :ensure t
+  :config
+  (autoload 'js2-mode "js2" nil t)
+  (add-to-list 'auto-mode-alist '("js$" . js2-mode)))
 
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
+;; Expand Region
+(use-package expand-region
+  :ensure t
+  :bind (("C-=" . er/expand-region)))
 
 (defun my-js2-mode-hook ()
   (require 'js2-refactor)
@@ -42,10 +44,13 @@
 
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
 
-(require 'fsharp-mode)
-(setq inferior-fsharp-program "/usr/local/bin/fsharpi --readline-")
-(setq fsharp-compiler "/usr/local/bin/fsharpc")
-(setq fsharp-ac-debug 0)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (require 'fsharp-mode)					       ;;
+;; (setq inferior-fsharp-program "/usr/local/bin/fsharpi --readline-") ;;
+;; (setq fsharp-compiler "/usr/local/bin/fsharpc")		       ;;
+;; (setq fsharp-ac-debug 0)					       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (add-to-list 'load-path "~/opt/elisp/site-lisp/tern/emacs")
 ;; (autoload 'tern-mode "tern.el" nil t)
@@ -130,9 +135,13 @@
           "Search the word at point with Dash." t nil)
 (global-set-key "\C-cd" 'dash-at-point)
 
-(add-hook 'csharp-mode-hook 'omnisharp-mode)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (add-hook 'csharp-mode-hook 'omnisharp-mode) ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (when (memq window-system '(mac ns)) ;;
+;;   (exec-path-from-shell-initialize)) ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide 'programming)

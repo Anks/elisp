@@ -1,11 +1,12 @@
-
-;; Initialization
-(smex-initialize)
-
-;; Key Bindings
-(global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+;; Install
+(use-package smex
+  :ensure t
+  :config
+  (smex-initialize)
+  :bind
+  (("M-x" . smex)
+   ("M-X" . smex-major-mode-commands)
+   ("C-c C-c M-x" . execute-extended-command)))
 
 ;; Exports
 (provide 'setup-smex)

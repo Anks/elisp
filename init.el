@@ -2,6 +2,7 @@
 
 (add-to-list 'load-path "~/opt/elisp")
 
+(require 'package-management)
 (require 'defaults)
 (require 'ankit-init)
 ; (require 'setup-helm)

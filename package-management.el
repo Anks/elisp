@@ -1,0 +1,18 @@
+;;; Inspired from Mike Zamansky's config
+
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+	(package-refresh-contents)
+	(package-install 'use-package))
+
+;; Enable 'try' to test out a bunch of different packages safely
+(use-package try
+  :ensure t)
+
+(provide 'package-management)

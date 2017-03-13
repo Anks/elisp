@@ -1,11 +1,3 @@
-(require 'package)
-;(add-to-list 'package-archives
-;    '("marmalade" .
-;      "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-(package-initialize)
-
 ;; ========== Place Backup Files in Specific Directory ==========
 (setq make-backup-files t)
 (setq version-control t)
@@ -28,9 +20,6 @@
 
 ;; ==== Load other libraries ====
 
-;; Load and Set the colour theme
-(load-theme 'zenburn t)
-
 ;; spell check
 (setq-default ispell-program-name "aspell")
 
@@ -49,11 +38,14 @@
 ;(setq x-select-enable-clipboard t)
 ;(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
-(require 'deft)
-(global-set-key [f8] 'deft)
-(setq deft-extension "txt")
-(setq deft-directory "~/Dropbox/deft")
-(setq deft-text-mode 'markdown-mode)
+(use-package deft
+  :ensure t
+  :config
+  (setq deft-extension "txt")
+  (setq deft-directory "~/Dropbox/deft")
+  (setq deft-text-mode 'markdown-mode)
+  :bind (([f8] . deft)))
+  
 
 ;; Customise deft to remove file-vars from the titile line.
 ;; I like using org-mode in some long-form files, but deft displays the
