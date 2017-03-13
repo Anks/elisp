@@ -9,8 +9,8 @@
 (require 'setup-org)
 (require 'mac)
 
-;; Blog posting
-(require 'posts)
+;; Writing
+(require 'writing)
 (global-set-key "`" 'ong-insert-special)
-(global-set-key (kbd "<C-f2>") 'god-local-mode)
+
 (require 'programming)

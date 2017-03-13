@@ -35,8 +35,8 @@
 (add-to-list 'ido-ignore-directories "node_modules")
 
 ;; Use ido everywhere
-(require 'ido-ubiquitous)
-(ido-ubiquitous-mode 1)
+; (require 'ido-ubiquitous)
+; (ido-ubiquitous-mode 1)
 
 ;; Fix ido-ubiquitous for newer packages
 (defmacro ido-ubiquitous-use-new-completing-read (cmd package)
