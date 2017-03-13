@@ -135,6 +135,4 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-(require 'ob-fsharp)
-
 (provide 'programming)
