@@ -4,52 +4,70 @@
 (local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
 (local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
 (local-set-key (kbd "<") 'skeleton-pair-insert-maybe)
+(show-paren-mode t)
+
+;; YASnippet
+;(require 'yasnippet)
+;(yas-global-mode 1)
+
+(require 'move-text)
+(global-set-key (kbd "<C-S-down>") 'move-text-down)
+(global-set-key (kbd "<C-S-up>") 'move-text-up)
 
 ;; xml-mode
-(add-to-list 'load-path "~/config/elisp/nxml-mode")
 (autoload 'nxml-mode "nxml-mode" nil t)
 (defalias 'xml-mode 'nxml-mode)
 
-;; javascript mode
+(require 'multiple-cursors)
 
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;; javascript mode
+(require 'js2-mode)
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("js$" . js2-mode))
-(add-to-list 'load-path "~/config/elisp/expand-region/")
-(add-to-list 'load-path "~/config/elisp/js2-refactor/")
-(add-to-list 'load-path "~/config/elisp/mark-multiple/")
 
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
-(defvar my-global-externs '("require" "module" "console"))
-
 (defun my-js2-mode-hook ()
   (require 'js2-refactor)
-  (message "My JS2 hook"))
+  ;(auto-fill-mode t)
+  )
 
-(setq js2-global-externs my-global-externs)
+(setq js2-global-externs '("require" "module" "console"))
 
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
 
+(require 'fsharp-mode)
+(setq inferior-fsharp-program "/usr/local/bin/fsharpi --readline-")
+(setq fsharp-compiler "/usr/local/bin/fsharpc")
+(setq fsharp-ac-debug 0)
+
+;; (add-to-list 'load-path "~/opt/elisp/site-lisp/tern/emacs")
+;; (autoload 'tern-mode "tern.el" nil t)
+;;(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+;; (eval-after-load 'auto-complete
+;;   '(eval-after-load 'tern
+;;      '(progn
+;;         (require 'tern-auto-complete)
+;;         (tern-ac-setup))))
+
 ;; ===== Set standard indent to 2 rather that 4 ====
+
+
 
 (setq indent-tabs-mode nil)
 (setq-default indent-tabs-mode nil)
-
-;; Bind the TAB key
-;(global-set-key (kbd "TAB") 'self-insert-command)
 
 ;; Set the tab width
 (setq tab-width 2)
 (setq c-basic-indent 2)
 
 ;; end via
-
-;; ===== Turn off tab character =====
-;;(setq-default indent-tabs-mode nil)
-
-;; use tabs, one tab = two space characters
-;;(setq-default indent-tabs-mode 1 setq tab-width 4)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;
@@ -58,21 +76,6 @@
 ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Load the Python mode for .py
-
-(add-to-list 'load-path "~/config/elisp/python-mode")
-(autoload 'python-mode "python-mode" "Python editing mode." t)
-    (setq auto-mode-alist
-           (cons '("\\.py$" . python-mode) auto-mode-alist))
-     (setq interpreter-mode-alist
-           (cons '("python" . python-mode) interpreter-mode-alist))
-
-;; Setup SLIME
-;; (add-to-list 'load-path "d:/usr/emacs/slime-2.0/")  ; your SLIME directory
-;; (setq inferior-lisp-program "d:/usr/bin/clisp-2.41/clisp.exe") ; your Lisp system
-;(setq inferior-lisp-program "sbcl")
-;(require 'slime)
-;(slime-setup)
 
 ;; Inline emacs eval, From emacs.wordpress.com
 (defun fc-eval-and-replace ()
@@ -87,33 +90,32 @@
 
 (global-set-key (kbd "C-c e") 'fc-eval-and-replace)
 
-(require 'php-mode)
-
 ;; This is how emacs tells the file type by the file suffix.
 (setq auto-mode-alist
-      (append '(("\\.mss$" . scribe-mode))
-              '(("\\.bib$" . bibtex-mode))
-              '(("\\.tex$" . latex-mode))
-              '(("\\.obj$" . lisp-mode))
-              '(("\\.st$"  . smalltalk-mode))
-              '(("\\.Z$"   . uncompress-while-visiting))
-              '(("\\.cs$"  . indented-text-mode))
-              '(("\\.C$"   . c++-mode))
-              '(("\\.cc$"  . c++-mode))
-              '(("\\.icc$" . c++-mode))
-              '(("\\.c$"   . c-mode))
-              '(("\\.y$"   . c-mode))
-              '(("\\.php$"   . php-mode))
-              '(("\\.h$"   . c++-mode))
+      (append '(("\\.mss$"         . scribe-mode))
+              '(("\\.bib$"         . bibtex-mode))
+              '(("\\.tex$"         . latex-mode))
+              '(("\\.obj$"         . lisp-mode))
+              '(("\\.st$"          . smalltalk-mode))
+              '(("\\.Z$"           . uncompress-while-visiting))
+              '(("\\.cs$"          . indented-text-mode))
+              '(("\\.C$"           . c++-mode))
+              '(("\\.cc$"          . c++-mode))
+              '(("\\.icc$"         . c++-mode))
+              '(("\\.c$"           . c-mode))
+              '(("\\.y$"           . c-mode))
+              '(("\\.h$"           . c++-mode))
+              '(("\\.markdown$"    . markdown-mode))
+              '(("\\.md$"          . markdown-mode))
+              '(("\\.mkd$"         . markdown-mode))
+              '(("\\.handlebars$"  . html-mode))
+              '(("\\.json$"        . js2-mode))
+              '(("\\.scss$"        . css-mode))
+              '(("\\.less$"        . css-mode))
               auto-mode-alist))
 
 ;; Provide *magic* expansion for text ;
 (global-set-key "\M- " 'hippie-expand)
-
-;; Rails
-;(add-to-list 'load-path "~/config/elisp/ruby-mode")
-;(add-to-list 'load-path "~/config/elisp/emacs-rails")
-;(require 'rails)
 
 ;; temporary hack for cases when not modifying whitespace is important
 ;; (defun delete-trailing-whitespace ()
@@ -123,30 +125,16 @@
 ;; (defun untabify (start end)
 ;;   (interactive))
 
-;; Follow PEAR coding guidelines for PHP
-(defun php-mode-hook ()
-  (setq tab-width 4
-        c-basic-offset 2
-        c-hanging-comment-ender-p nil
-        indent-tabs-mode nil
-        (not
-         (and (string-match "/\\(PEAR\\|pear\\)/" (buffer-file-name))
-              (string-match "\.php$" (buffer-file-name))))))
 
-;; c# mode
-;(require 'csharp-mode)
-;(autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
-;(setq auto-mode-alist
-;      (append '(("\\.cs$" . csharp-mode)) auto-mode-alist))
+(autoload 'dash-at-point "dash-at-point"
+          "Search the word at point with Dash." t nil)
+(global-set-key "\C-cd" 'dash-at-point)
 
-;; Follow Mono guidelines for C#
-;(defun my-csharp-mode-hook ()
-;  (message "CSharp Mode")
-;  (setq tab-width 8
-;        standard-indent 8
-;        c-basic-offset 8
-;        c-hanging-comment-ender-p nil
-;        indent-tabs-mode t))
-;(add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
+(add-hook 'csharp-mode-hook 'omnisharp-mode)
+
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
+(require 'ob-fsharp)
 
 (provide 'programming)

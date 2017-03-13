@@ -8,7 +8,7 @@
         (if (not (null name))
             (setf string 
                   (concatenate 'string string "(" (number-to-string i) "): " name " ")))))
-    (ucs-insert (car (nth (read-number string 0) completion)))))
+    (insert-char (car (nth (read-number string 0) completion)))))
 
 (defun ank-get-unicode-results (keywords) 
   (read-from-string

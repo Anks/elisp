@@ -7,7 +7,6 @@
   "Blog posting stuff."
   :group 'languages)
 
-(add-to-list 'load-path "~/config/elisp/markdown-mode")
 (require 'markdown-mode)
 
 ;;;;;;;;;;;;;; Command paths ;;;;;;;;;;;;;;
@@ -41,18 +40,18 @@
    ((= c ?s)
     (if sq-state
         (progn
-          (ucs-insert #x2019)
+          (insert-char #x2019)
           (setq sq-state 'nil))
-      (ucs-insert #x2018)
+      (insert-char #x2018)
       (setq sq-state 't)))
    ((= c ?d)
     (if dq-state
         (progn
-          (ucs-insert #x201d)
+          (insert-char #x201d)
           (setq dq-state 'nil))
-      (ucs-insert #x201c)
+      (insert-char #x201c)
       (setq dq-state 't)))
-   ((= c ?') (ucs-insert #x2019))
+   ((= c ?') (insert-char #x2019))
    ((= c ?a)
     (progn
       (if (> (current-column) 0) (newline-and-indent))
@@ -67,9 +66,9 @@
       ))
    ((= c ?&) (insert "&amp;"))
    ((= c ?<) (insert "&lt;"))
-   ((= c ?-) (ucs-insert #x2014))
+   ((= c ?-) (insert-char #x2014))
    ((= c ?`) (insert "`"))
-   ((= c ?.) (ucs-insert #x002026))))
+   ((= c ?.) (insert-char #x002026))))
 
 ;;;;;;;;;;;; Wordnet ;;;;;;;;;;;;;;;;
 
@@ -138,8 +137,8 @@ on top of markdown-mode each time a blog post is created."
   (markdown-mode)
 
   ; If longline-mode is present, use it.
-  (if (boundp 'longlines-mode)
-    (longlines-mode t)
+  (if (boundp 'visual-line-mode)
+    (visual-line-mode t)
     (auto-fill-mode -1))
 
   ; Set some custom key bindings

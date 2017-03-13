@@ -1,19 +1,10 @@
-;; Display preferences
-(setq ring-bell-function 'ignore)
-(setq inhibit-startup-message t)
-(menu-bar-mode nil)
-(toggle-scroll-bar nil)
-(tool-bar-mode nil)
-(blink-cursor-mode nil)
-(line-number-mode 1)
-(column-number-mode 1)
-(setq-default fill-column 72)
-(global-font-lock-mode t)
+(require 'package)
+;(add-to-list 'package-archives
+;    '("marmalade" .
+;      "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-;; ===== Automatically load abbreviations table =====
-(setq-default abbrev-mode t)
-(read-abbrev-file "~/.emacs.d/.abbrevs/.abbrev_defs")
-(setq save-abbrevs t)
+(package-initialize)
 
 ;; ========== Place Backup Files in Specific Directory ==========
 (setq make-backup-files t)
@@ -22,19 +13,9 @@
 (setq delete-old-versions t)
 
 ;; ===== Make Text mode the default mode for new buffers =====
-;; (setq default-major-mode 'text-mode)
 (setq major-mode 'text-mode)
 
 ;; ====== Add enhancements, remove annoyances ======
-(iswitchb-mode t)
-(defalias 'yes-or-no-p 'y-or-n-p)
-(global-set-key "\C-z" 'eshell)
-(setq eshell-save-history-on-exit t)
-(add-hook 'eshell-mode-hook
-          '(lambda ()
-             (local-set-key (kbd "<up>") 'previous-line)
-             (local-set-key (kbd "<down>") 'next-line)
-             (local-set-key (kbd "C-z") 'bury-buffer)))
 
 ;; isearch + occur
 (defun isearch-occur ()
@@ -47,33 +28,12 @@
 
 ;; ==== Load other libraries ====
 
-;; Load HTMLize module
-(require 'htmlize)
-
-;; Load longlines module
-(require 'longlines)
-
 ;; Load and Set the colour theme
-(require 'color-theme)
-;(setq load-path (cons "~/config/elisp/emacs-color-theme-solarized" load-path))
+;(require 'color-theme)
+;(setq load-path (cons "~/opt/elisp/emacs-color-theme-solarized" load-path))
 ;(require 'color-theme-solarized)
-(color-theme-charcoal-black)
-
-
-;; Set proper encodings... UTF-8 all the way
-(set-language-environment "utf-8")
-(prefer-coding-system 'utf-8)
-
-;;;;;;;;;;;;;;;;;;;;;;
-; Configure org mode ;
-;;;;;;;;;;;;;;;;;;;;;;
-
-(setq load-path (cons "~/config/elisp/org-6.10/lisp/" load-path))
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-(setq org-log-done t)
+;(color-theme-charcoal-black)
+(load-theme 'zenburn t)
 
 ;; spell check
 (setq-default ispell-program-name "aspell")
@@ -83,25 +43,8 @@
   (interactive)
   (find-file "/ssh:anks@simulacra.in:/home/.nest/anks/simulacra.in/"))
 
-;; Post
-(defun post ()
-  "Create a new blog post."
-  (interactive)
-  (let ((title (read-string "Post title? ")))
-    (progn
-      (find-file (concat "~/Documents/writing/posts/" title ".post"))
-      (insert title)
-      (newline)
-      (insert "--------------------------------------")
-      (newline)
-      (newline))))
-
 ;; enable history of recent files
 (recentf-mode t)
-
-;(add-to-list 'load-path "~/config/elisp/helm")
-;(require 'helm-config)
-;(global-set-key (kbd "<Super-|>") 'helm-mini)
 
 ;; anything config
 ;(require 'anything-config)
@@ -122,9 +65,6 @@
 
 ;; (global-set-key (kbd "<C-menu>") 'anything)
 
-(fset 'ank-grep-for-text
-   [?\C-z ?g ?r ?e ?p ?  ?- ?i ?H ?R ?\S-  ?\" ?\C-y ?\" ?  ?* return])
-
 (fset 'ank-add-quotes
    [?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?r ?e ?g tab return ?^ return ?> return])
 
@@ -132,29 +72,24 @@
 ;(setq x-select-enable-clipboard t)
 ;(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
-;; twit.el
-;;(load-library "twit")
-
-(load-library "deft")
+(require 'deft)
 (global-set-key [f8] 'deft)
 (setq deft-extension "txt")
 (setq deft-directory "~/Dropbox/deft")
 (setq deft-text-mode 'markdown-mode)
 
-;; IDO mode
-;; (ido-mode t)
-;; (setq ido-enable-flex-matching t) ; fuzzy matching is a must have
+;; Customise deft to remove file-vars from the titile line.
+;; I like using org-mode in some long-form files, but deft displays the
+;; file vars (-*- mode: org; -*-) in the title.
+;; This custom function strips the file vars and gives a clean title.
+(defun deft-title-fn-strip-file-vars (str)
+  (replace-regexp-in-string "-\\*-.*-\\*-" "" (deft-strip-title str)))
+(setq deft-parse-title-function 'deft-title-fn-strip-file-vars)
 
-;; This tab override shouldn't be necessary given ido's default
-;; configuration, but minibuffer-complete otherwise dominates the
-;; tab binding because of my custom tab-completion-everywhere
-;; configuration.
-;; (add-hook 'ido-setup-hook
-;;           (lambda ()
-;;             (define-key ido-completion-map [tab] 'ido-complete)))
-
-
+(setq server-socket-dir (format "/tmp/emacs%d" (user-uid)))
 (server-start)
+
 
 (message "Loaded init file.")
 (provide 'ankit-init)
+
