@@ -1,9 +1,10 @@
 ;; Load all custom settings
 
 (add-to-list 'load-path "~/opt/elisp")
+
 (require 'defaults)
 (require 'ankit-init)
-(require 'setup-helm)
+; (require 'setup-helm)
 (require 'setup-smex)
 (require 'appearance)
 (require 'setup-org)

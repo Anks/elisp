@@ -29,10 +29,6 @@
 ;; ==== Load other libraries ====
 
 ;; Load and Set the colour theme
-;(require 'color-theme)
-;(setq load-path (cons "~/opt/elisp/emacs-color-theme-solarized" load-path))
-;(require 'color-theme-solarized)
-;(color-theme-charcoal-black)
 (load-theme 'zenburn t)
 
 ;; spell check
@@ -45,25 +41,6 @@
 
 ;; enable history of recent files
 (recentf-mode t)
-
-;; anything config
-;(require 'anything-config)
-
-;; (setq anything-sources (list anything-c-source-buffers
-;;                              anything-c-source-file-name-history
-;;                              anything-c-source-complex-command-history
-;;                              anything-c-source-imenu
-;;                              anything-c-source-emacs-commands
-;;                              anything-c-source-locate))
-
-;; (setq anything-filtered-candidate-transformers
-;;       '((buffer   . anything-c-adaptive-sort)
-;;         (file     . anything-c-adaptive-sort)
-;;         (command  . anything-c-adaptive-sort)
-;;         (function . anything-c-adaptive-sort)
-;;         (sexp     . anything-c-adaptive-sort)))
-
-;; (global-set-key (kbd "<C-menu>") 'anything)
 
 (fset 'ank-add-quotes
    [?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?r ?e ?g tab return ?^ return ?> return])
