@@ -66,4 +66,4 @@
 
 
 (message "Loaded init file.")
-(provide 'ankit-init)
+(provide 'misc-init)

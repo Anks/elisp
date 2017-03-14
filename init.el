@@ -21,4 +21,4 @@
 (require 'programming)
 
 ;; All other init
-(require 'ankit-init)
+(require 'misc-init)
