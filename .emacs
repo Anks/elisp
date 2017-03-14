@@ -16,7 +16,7 @@
  '(inhibit-startup-echo-area-message "ankit")
  '(package-selected-packages
    (quote
-    (ledger-mode hungry-delete auto-complete expand-region js2-mode multiple-cursors zenburn-theme which-key use-package try smex deft))))
+    (markdown-mode fsharp-mode ledger-mode hungry-delete auto-complete expand-region js2-mode multiple-cursors zenburn-theme which-key use-package try smex deft))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

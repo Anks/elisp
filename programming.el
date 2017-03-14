@@ -56,14 +56,6 @@
 
 ;; TODO Add tern for emacs
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (require 'fsharp-mode)					       ;;
-;; (setq inferior-fsharp-program "/usr/local/bin/fsharpi --readline-") ;;
-;; (setq fsharp-compiler "/usr/local/bin/fsharpc")		       ;;
-;; (setq fsharp-ac-debug 0)					       ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; (add-to-list 'load-path "~/opt/elisp/site-lisp/tern/emacs")
 ;; (autoload 'tern-mode "tern.el" nil t)
 ;;(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
@@ -73,11 +65,18 @@
 ;;         (require 'tern-auto-complete)
 ;;         (tern-ac-setup))))
 
-;; ===== Set standard indent to 2 rather that 4 ====
+;;;;;;;;; F#
+
+;; TODO Setup autocomplete for F# properly
+(use-package fsharp-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.fs[iylx]?$" . fsharp-mode))
+  (setq inferior-fsharp-program "/usr/local/bin/fsharpi --readline-")
+  (setq fsharp-compiler "/usr/local/bin/fsharpc"))
 
 
 
-;; end via
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;
