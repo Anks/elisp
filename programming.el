@@ -65,6 +65,9 @@
 ;;         (require 'tern-auto-complete)
 ;;         (tern-ac-setup))))
 
+(use-package json-mode
+  :ensure t)
+
 ;;;;;;;;; F#
 
 ;; TODO Setup autocomplete for F# properly
@@ -118,7 +121,7 @@
               '(("\\.md$"          . markdown-mode))
               '(("\\.mkd$"         . markdown-mode))
               '(("\\.handlebars$"  . html-mode))
-              '(("\\.json$"        . js2-mode))
+              '(("\\.json$"        . json-mode))
               '(("\\.scss$"        . css-mode))
               '(("\\.less$"        . css-mode))
               auto-mode-alist))
