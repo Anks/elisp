@@ -14,14 +14,11 @@
 (require 'appearance)
 (require 'mac)
 
-;; All other init
-(require 'ankit-init)
-
-; (require 'setup-helm)
 (require 'setup-smex)
 (require 'setup-org)
 
-;; Writing
 (require 'writing)
-
 (require 'programming)
+
+;; All other init
+(require 'ankit-init)

@@ -33,10 +33,6 @@
 ;; enable history of recent files
 (recentf-mode t)
 
-;; make emacs use the clipboard
-;(setq x-select-enable-clipboard t)
-;(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
-
 (use-package deft
   :ensure t
 
