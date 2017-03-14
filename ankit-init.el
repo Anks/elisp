@@ -18,6 +18,13 @@
 
 (define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
 
+;; ==== Ledger mode ===
+
+(use-package ledger-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode)))
+
 ;; ==== Load other libraries ====
 
 ;; spell check
