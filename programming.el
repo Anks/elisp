@@ -26,9 +26,21 @@
 ;; javascript mode
 (use-package js2-mode
   :ensure t
+  :ensure ac-js2
   :config
   (autoload 'js2-mode "js2" nil t)
+  (add-hook 'js2-mode-hook 'ac-js2-mode)
   (add-to-list 'auto-mode-alist '("js$" . js2-mode)))
+
+(use-package js2-refactor
+  :ensure t
+  :config 
+  (progn
+    (js2r-add-keybindings-with-prefix "C-c C-m")
+    ;; eg. extract function with `C-c C-m ef`.
+    (add-hook 'js2-mode-hook #'js2-refactor-mode)))
+
+;; TODO Add tern for emacs
 
 ;; Expand Region
 (use-package expand-region
@@ -143,5 +155,14 @@
 ;; (when (memq window-system '(mac ns)) ;;
 ;;   (exec-path-from-shell-initialize)) ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Auto complete
+(use-package auto-complete
+  :ensure t
+  :init
+  (progn
+    (ac-config-default)
+    (global-auto-complete-mode t)
+    ))
 
 (provide 'programming)

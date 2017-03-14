@@ -4,17 +4,14 @@
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 
+;;; Highlights the current cursor line
+(global-hl-line-mode t)
+
 ;; Theme
 ;; Load and Set the colour theme
 (use-package zenburn-theme :ensure t)
 (load-theme 'zenburn t)
 
-;; Remove all chrome
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-(horizontal-scroll-bar-mode -1)
-(scroll-bar-mode -1)
 
 ;; Do not blink the cursor
 (blink-cursor-mode -1)

@@ -1,5 +1,6 @@
 ;;; Writing related hacks
 
+
 ;;;;;;;;;;;;;; Smart quotes  ;;;;;;;;;;;;;;
 
 ;; Ongoing : http://www.tbray.org/ongoing/When/200x/2003/09/27/UniEmacs
@@ -53,5 +54,7 @@
    ((= c ?-) (insert-char #x2014))
    ((= c ?`) (insert "`"))
    ((= c ?.) (insert-char #x002026))))
+
+(global-set-key "`" 'ong-insert-special)
 
 (provide 'writing)

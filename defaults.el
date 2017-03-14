@@ -1,6 +1,14 @@
 ;; Some of these are from magnar's sane-defaults.el
 ;; Also from technomancy/better-defaults
 
+;; Remove all chrome
+;; Do this early to avoid flashing
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+(horizontal-scroll-bar-mode -1)
+(scroll-bar-mode -1)
+
 ;; Use Trash in dired, etc
 (setq delete-by-moving-to-trash t)
 
@@ -31,5 +39,11 @@
 
 ;; Prevent stale bytecode from being loaded
 (setq load-prefer-newer t)
+
+;; Use ido
+(unless (fboundp 'helm-mode)
+  (ido-mode t)
+  (setq ido-enable-flex-matching t))
+
 
 (provide 'defaults)

@@ -2,20 +2,24 @@
 
 (add-to-list 'load-path "~/opt/elisp")
 
+;; Clean up things before we start customising
+(require 'defaults)
+
 ;; For configuring third party packages
 (require 'package-management)
 
-(require 'defaults)
+
 (require 'appearance)
 (require 'mac)
 
+;; All other init
 (require 'ankit-init)
+
 ; (require 'setup-helm)
 (require 'setup-smex)
 (require 'setup-org)
 
 ;; Writing
 (require 'writing)
-(global-set-key "`" 'ong-insert-special)
 
 (require 'programming)
