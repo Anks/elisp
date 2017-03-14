@@ -30,16 +30,8 @@
 ;; spell check
 (setq-default ispell-program-name "aspell")
 
-;; Open simulacra
-(defun simulacra ()
-  (interactive)
-  (find-file "/ssh:anks@simulacra.in:/home/.nest/anks/simulacra.in/"))
-
 ;; enable history of recent files
 (recentf-mode t)
-
-(fset 'ank-add-quotes
-   [?\M-x ?r ?e ?p ?l ?a ?c ?e ?- ?r ?e ?g tab return ?^ return ?> return])
 
 ;; make emacs use the clipboard
 ;(setq x-select-enable-clipboard t)
@@ -47,20 +39,21 @@
 
 (use-package deft
   :ensure t
+
   :config
-  (setq deft-extension "txt")
-  (setq deft-directory "~/Dropbox/deft")
-  (setq deft-text-mode 'markdown-mode)
+  (setq deft-extension "txt"
+        deft-directory "~/Dropbox/deft"
+        deft-text-mode 'markdown-mode)
+
+  ;; Customise deft to remove file-vars from the titile line.
+  ;; I like using org-mode in some long-form files, but deft displays the
+  ;; file vars (-*- mode: org; -*-) in the title.
+  ;; This custom function strips the file vars and gives a clean title.
+  (defun deft-title-fn-strip-file-vars (str)
+    (replace-regexp-in-string "-\\*-.*-\\*-" "" (deft-strip-title str)))
+  (setq deft-parse-title-function 'deft-title-fn-strip-file-vars)
+
   :bind (([f8] . deft)))
-
-
-;; Customise deft to remove file-vars from the titile line.
-;; I like using org-mode in some long-form files, but deft displays the
-;; file vars (-*- mode: org; -*-) in the title.
-;; This custom function strips the file vars and gives a clean title.
-(defun deft-title-fn-strip-file-vars (str)
-  (replace-regexp-in-string "-\\*-.*-\\*-" "" (deft-strip-title str)))
-(setq deft-parse-title-function 'deft-title-fn-strip-file-vars)
 
 
 ;; which key
