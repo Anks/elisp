@@ -1,3 +1,11 @@
+;; Set default tab settings
+(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
+
+;; Set the tab width
+(setq tab-width 4)
+(setq c-basic-indent 4)
+
 ;; Auto insert matching brackets
 (setq skeleton-pair t)
 (local-set-key (kbd "[") 'skeleton-pair-insert-maybe)
@@ -6,55 +14,47 @@
 (local-set-key (kbd "<") 'skeleton-pair-insert-maybe)
 (show-paren-mode t)
 
+;;; Auto complete
+(use-package auto-complete
+  :ensure t
+  :init
+  (progn
+    (ac-config-default)
+    (global-auto-complete-mode t)
+    ))
+
 ;; YASnippet
 ;(require 'yasnippet)
 ;(yas-global-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;;; Language specific modes
+
 
 ;; xml-mode
 (autoload 'nxml-mode "nxml-mode" nil t)
 (defalias 'xml-mode 'nxml-mode)
 
-;; multiple-cursors
-(use-package multiple-cursors
-  :ensure t
-  :bind (("C-S-c C-S-c" . mc/edit-lines)
-	 ("C->"         . mc/mark-next-like-this)
-	 ("C-<"         . mc/mark-previous-like-this)
-	 ("C-c C-<"     . mc/mark-all-like-this)))
-
-
 ;; javascript mode
 (use-package js2-mode
   :ensure t
   :ensure ac-js2
-  :config
-  (autoload 'js2-mode "js2" nil t)
+  :init
   (add-hook 'js2-mode-hook 'ac-js2-mode)
+  :config
+  (setq js2-global-externs '("require" "module" "console"))
+  (autoload 'js2-mode "js2" nil t)
   (add-to-list 'auto-mode-alist '("js$" . js2-mode)))
 
 (use-package js2-refactor
   :ensure t
+  :init
+  (add-hook 'js2-mode-hook #'js2-refactor-mode)
   :config 
-  (progn
-    (js2r-add-keybindings-with-prefix "C-c C-m")
-    ;; eg. extract function with `C-c C-m ef`.
-    (add-hook 'js2-mode-hook #'js2-refactor-mode)))
-
-;; TODO Add tern for emacs
-
-;; Expand Region
-(use-package expand-region
-  :ensure t
-  :bind (("C-=" . er/expand-region)))
-
-(defun my-js2-mode-hook ()
-  (require 'js2-refactor)
-  ;(auto-fill-mode t)
+  (js2r-add-keybindings-with-prefix "C-c C-m")
+  ;; eg. extract function with `C-c C-m ef`.
   )
 
-(setq js2-global-externs '("require" "module" "console"))
-
-(add-hook 'js2-mode-hook 'my-js2-mode-hook)
+;; TODO Add tern for emacs
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -76,13 +76,6 @@
 ;; ===== Set standard indent to 2 rather that 4 ====
 
 
-
-(setq indent-tabs-mode nil)
-(setq-default indent-tabs-mode nil)
-
-;; Set the tab width
-(setq tab-width 2)
-(setq c-basic-indent 2)
 
 ;; end via
 
@@ -156,13 +149,5 @@
 ;;   (exec-path-from-shell-initialize)) ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Auto complete
-(use-package auto-complete
-  :ensure t
-  :init
-  (progn
-    (ac-config-default)
-    (global-auto-complete-mode t)
-    ))
 
 (provide 'programming)

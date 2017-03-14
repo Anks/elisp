@@ -40,10 +40,4 @@
 ;; Prevent stale bytecode from being loaded
 (setq load-prefer-newer t)
 
-;; Use ido
-(unless (fboundp 'helm-mode)
-  (ido-mode t)
-  (setq ido-enable-flex-matching t))
-
-
 (provide 'defaults)

@@ -1,14 +1,16 @@
-;; Interactively Do Things
 
-(require 'ido)
-(ido-mode t)
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-case-fold t
-      ido-auto-merge-work-directories-length -1
-      ido-create-new-buffer 'always
-      ido-use-filename-at-point nil
-      ido-max-prospects 10)
+;; Use ido
+(unless (fboundp 'helm-mode)
+  (ido-mode t)
+  (setq
+   ido-enable-flex-matching t
+   ido-use-virtual-buffers t
+   ido-create-new-buffer (quote never)
+   ido-enable-last-directory-history t
+   ido-case-fold t
+   ido-enable-prefix nil
+   ))
+
 
 (add-hook
  'ido-setup-hook
@@ -39,14 +41,14 @@
 ; (ido-ubiquitous-mode 1)
 
 ;; Fix ido-ubiquitous for newer packages
-(defmacro ido-ubiquitous-use-new-completing-read (cmd package)
-  `(eval-after-load ,package
-     '(defadvice ,cmd (around ido-ubiquitous-new activate)
-        (let ((ido-ubiquitous-enable-compatibility nil))
-          ad-do-it))))
+;; (defmacro ido-ubiquitous-use-new-completing-read (cmd package)
+;;   `(eval-after-load ,package
+;;      '(defadvice ,cmd (around ido-ubiquitous-new activate)
+;;         (let ((ido-ubiquitous-enable-compatibility nil))
+;;           ad-do-it))))
 
-(ido-ubiquitous-use-new-completing-read webjump 'webjump)
-(ido-ubiquitous-use-new-completing-read yas/expand 'yasnippet)
-(ido-ubiquitous-use-new-completing-read yas/visit-snippet-file 'yasnippet)
+;; (ido-ubiquitous-use-new-completing-read webjump 'webjump)
+;; (ido-ubiquitous-use-new-completing-read yas/expand 'yasnippet)
+;; (ido-ubiquitous-use-new-completing-read yas/visit-snippet-file 'yasnippet)
 
 (provide 'setup-ido)

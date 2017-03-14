@@ -4,6 +4,8 @@
 
 ;; Clean up things before we start customising
 (require 'defaults)
+;; ido all the things
+(require 'setup-ido)
 
 ;; For configuring third party packages
 (require 'package-management)
