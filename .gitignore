@@ -1,3 +1,6 @@
 *.elc
-.emacs.d
-site-lisp
+.emacs.d/.mc-lists.el
+.emacs.d/ac-comphist.dat
+elpa
+.emacs.d/places
+.emacs.d/smex-items
