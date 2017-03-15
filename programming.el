@@ -6,22 +6,21 @@
 (setq tab-width 4)
 (setq c-basic-indent 4)
 
-;; Auto insert matching brackets
-(setq skeleton-pair t)
-(local-set-key (kbd "[") 'skeleton-pair-insert-maybe)
-(local-set-key (kbd "(") 'skeleton-pair-insert-maybe)
-(local-set-key (kbd "{") 'skeleton-pair-insert-maybe)
-(local-set-key (kbd "<") 'skeleton-pair-insert-maybe)
-(show-paren-mode t)
+;;; Smartparens
+(use-package smartparens
+  :ensure t
+  :init
+  (smartparens-global-mode 1)
+  :config
+  (use-package smartparens-config))
+
 
 ;;; Auto complete
 (use-package auto-complete
   :ensure t
   :init
-  (progn
-    (ac-config-default)
-    (global-auto-complete-mode t)
-    ))
+  (ac-config-default)
+  (global-auto-complete-mode t))
 
 ;; YASnippet
 ;(require 'yasnippet)
