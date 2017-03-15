@@ -61,7 +61,7 @@
 
 ;; Auto-complete support (also provides jump-to-definition).
 (use-package ac-js2
-  :ensure t
+  :load-path "site-lisp/ac-js2"
   :init
   ;; TODO This does not seem to work, need to fix it
   ;; See https://github.com/ScottyB/ac-js2/issues/18
@@ -139,9 +139,6 @@
               '(("\\.less$"        . css-mode))
               auto-mode-alist))
 
-;; Provide *magic* expansion for text ;
-(global-set-key "\M- " 'hippie-expand)
-
 ;; temporary hack for cases when not modifying whitespace is important
 ;; (defun delete-trailing-whitespace ()
 ;;   (interactive))
@@ -155,10 +152,18 @@
 ;; (add-hook 'csharp-mode-hook 'omnisharp-mode) ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (when (memq window-system '(mac ns)) ;;
-;;   (exec-path-from-shell-initialize)) ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package ob-fsharp
+  :load-path "site-lisp/")
 
+;; org-babel
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (emacs-lisp . t)
+   (fsharp . t)
+   (js . t)))
+
+(setq org-babel-python-command "python3")
 
 (provide 'programming)

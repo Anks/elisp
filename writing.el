@@ -1,5 +1,8 @@
 ;;; Writing & General Text Editing related hacks
 
+;; Provide *magic* expansion for text ;
+(global-set-key "\M- " 'hippie-expand)
+
 ;; markdown
 (use-package markdown-mode
   :ensure t
