@@ -23,6 +23,10 @@
   :ensure t
   :bind (("C-=" . er/expand-region)))
 
+;; CSV
+(use-package csv-mode
+  :ensure t)
+
 ;;;;;;;;;;;;;; Smart quotes  ;;;;;;;;;;;;;;
 
 ;; Ongoing : http://www.tbray.org/ongoing/When/200x/2003/09/27/UniEmacs

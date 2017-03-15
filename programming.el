@@ -34,16 +34,39 @@
 (autoload 'nxml-mode "nxml-mode" nil t)
 (defalias 'xml-mode 'nxml-mode)
 
-;; javascript mode
+;; via https://github.com/pkkm/.emacs.d/blob/master/conf/mode-specific/javascript.el
+
+;; Javascript IDE.
 (use-package js2-mode
   :ensure t
-  :ensure ac-js2
-  :init
-  (add-hook 'js2-mode-hook 'ac-js2-mode)
+  :mode ("\\.js\\'" . js2-mode)
   :config
-  (setq js2-global-externs '("require" "module" "console"))
-  (autoload 'js2-mode "js2" nil t)
-  (add-to-list 'auto-mode-alist '("js$" . js2-mode)))
+  (setq js2-highlight-level 3) ; Highlight many built-in functions.
+  (setq js2-global-externs '("require" "module" "console")))
+
+;; Skewer -- live web development minor mode.
+;; Methods of launching:
+;;   * M-x run-skewer
+;;   * Use the Skewer bookmarklet to inject it into an existing page.
+;; Keybindings resemble the Lisp ones:
+;;   C-x C-e -- JS: eval form (with prefix: insert result); CSS: load declaration.
+;;   C-M-x -- JS: eval top-level-form; CSS: load rule; HTML: load tag.
+;;   C-c C-k -- JS, CSS: eval buffer.
+;;   C-c C-z -- JS: switch to REPL (logging: "skewer.log()", like "console.log()").
+;; Forms are sent to all attached clients simultaneously (use `list-skewer-clients' to show them).
+;; If the browser disconnects, use "skewer()" in the browser console to reconnect.
+(use-package skewer-mode
+  :ensure t
+  :init
+  (skewer-setup)) ; Integrate with js2-mode, html-mode and css-mode. (Don't worry about performance, this function is in a separate file.)
+
+;; Auto-complete support (also provides jump-to-definition).
+(use-package ac-js2
+  :ensure t
+  :init
+  ;; TODO This does not seem to work, need to fix it
+  ;; See https://github.com/ScottyB/ac-js2/issues/18
+  (add-hook 'js2-mode-hook #'ac-js2-mode))
 
 (use-package js2-refactor
   :ensure t
@@ -55,15 +78,6 @@
   )
 
 ;; TODO Add tern for emacs
-
-;; (add-to-list 'load-path "~/opt/elisp/site-lisp/tern/emacs")
-;; (autoload 'tern-mode "tern.el" nil t)
-;;(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-;; (eval-after-load 'auto-complete
-;;   '(eval-after-load 'tern
-;;      '(progn
-;;         (require 'tern-auto-complete)
-;;         (tern-ac-setup))))
 
 (use-package json-mode
   :ensure t)
