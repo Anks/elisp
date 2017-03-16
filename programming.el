@@ -9,6 +9,7 @@
 ;;; Smartparens
 (use-package smartparens
   :ensure t
+  :diminish smartparens-mode
   :init
   (smartparens-global-mode 1)
   :config
@@ -18,6 +19,7 @@
 ;;; Auto complete
 (use-package auto-complete
   :ensure t
+  :diminish auto-complete-mode
   :init
   (ac-config-default)
   (global-auto-complete-mode t))

@@ -54,4 +54,6 @@
 ;;                     '(("l" . text-scale-decrease)
 ;;                       ("g" . text-scale-increase))))
 
+(require 'diminish nil t)
+
 (provide 'appearance)

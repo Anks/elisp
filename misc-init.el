@@ -58,6 +58,7 @@
 ;; Not sure if it will stay for long term
 (use-package which-key
   :ensure t
+  :diminish which-key-mode
   :config
   (which-key-mode))
 

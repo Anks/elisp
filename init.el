@@ -10,7 +10,6 @@
 ;; For configuring third party packages
 (require 'package-management)
 
-
 (require 'appearance)
 (require 'mac)
 
