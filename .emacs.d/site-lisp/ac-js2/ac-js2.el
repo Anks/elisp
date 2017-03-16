@@ -282,11 +282,11 @@ string contain a function prototype."
   "Setup ac-js2 to be used with auto-complete-mode."
   (add-to-list 'ac-sources 'ac-source-js2)
   (auto-complete-mode)
-  (ac-define-source "js2"
-    '((candidates . ac-js2-ac-candidates)
-      (document . ac-js2-ac-document)
-      (prefix .  ac-js2-ac-prefix)
-      (requires . -1))))
+  (eval '(ac-define-source "js2"
+           '((candidates . ac-js2-ac-candidates)
+             (document . ac-js2-ac-document)
+             (prefix .  ac-js2-ac-prefix)
+             (requires . -1)))))
 
 ;;; Completion at point function
 
