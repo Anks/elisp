@@ -16,13 +16,17 @@
   (use-package smartparens-config))
 
 
-;;; Auto complete
-(use-package auto-complete
+;;; Auto complete using company mode
+(use-package company
   :ensure t
-  :diminish auto-complete-mode
-  :init
-  (ac-config-default)
-  (global-auto-complete-mode t))
+  :diminish company-mode
+  :config
+  (add-hook 'after-init-hook 'global-company-mode))
+
+(use-package company-quickhelp
+  :ensure t
+  :config
+  (company-quickhelp-mode 1))
 
 ;; YASnippet
 ;(require 'yasnippet)
@@ -61,13 +65,6 @@
   :init
   (skewer-setup)) ; Integrate with js2-mode, html-mode and css-mode. (Don't worry about performance, this function is in a separate file.)
 
-;; Auto-complete support (also provides jump-to-definition).
-(use-package ac-js2
-  :load-path "site-lisp/ac-js2"
-  :init
-  ;; TODO This does not seem to work, need to fix it
-  ;; See https://github.com/ScottyB/ac-js2/issues/18
-  (add-hook 'js2-mode-hook #'ac-js2-mode))
 
 (use-package js2-refactor
   :ensure t
@@ -78,7 +75,16 @@
   ;; eg. extract function with `C-c C-m ef`.
   )
 
-;; TODO Add tern for emacs
+(use-package tern
+  :ensure t
+  :init
+  (add-hook 'js-mode-hook  (lambda () (tern-mode t))))
+
+(use-package company-tern
+  :ensure t
+  :after company
+  :init
+  (add-to-list 'company-backends 'company-tern))
 
 (use-package json-mode
   :ensure t)
