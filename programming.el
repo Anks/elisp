@@ -83,53 +83,6 @@
   (setq fsharp-compiler "/usr/local/bin/fsharpc"))
 
 
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;
-;;;; This provides customized support for writing programs in different kinds
-;;;; of programming languages.
-;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-;; Inline emacs eval, From emacs.wordpress.com
-(defun fc-eval-and-replace ()
-  "Replace the preceding sexp with its value."
-  (interactive)
-  (backward-kill-sexp)
-  (condition-case nil
-      (prin1 (eval (read (current-kill 0)))
-             (current-buffer))
-    (error (message "Invalid expression")
-           (insert (current-kill 0)))))
-
-(global-set-key (kbd "C-c e") 'fc-eval-and-replace)
-
-;; This is how emacs tells the file type by the file suffix.
-(setq auto-mode-alist
-      (append '(("\\.mss$"         . scribe-mode))
-              '(("\\.bib$"         . bibtex-mode))
-              '(("\\.tex$"         . latex-mode))
-              '(("\\.obj$"         . lisp-mode))
-              '(("\\.st$"          . smalltalk-mode))
-              '(("\\.Z$"           . uncompress-while-visiting))
-              '(("\\.cs$"          . indented-text-mode))
-              '(("\\.C$"           . c++-mode))
-              '(("\\.cc$"          . c++-mode))
-              '(("\\.icc$"         . c++-mode))
-              '(("\\.c$"           . c-mode))
-              '(("\\.y$"           . c-mode))
-              '(("\\.h$"           . c++-mode))
-              '(("\\.markdown$"    . markdown-mode))
-              '(("\\.md$"          . markdown-mode))
-              '(("\\.mkd$"         . markdown-mode))
-              '(("\\.handlebars$"  . html-mode))
-              '(("\\.json$"        . json-mode))
-              '(("\\.scss$"        . css-mode))
-              '(("\\.less$"        . css-mode))
-              auto-mode-alist))
-
 ;; temporary hack for cases when not modifying whitespace is important
 ;; (defun delete-trailing-whitespace ()
 ;;   (interactive))
@@ -138,15 +91,10 @@
 ;; (defun untabify (start end)
 ;;   (interactive))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; (add-hook 'csharp-mode-hook 'omnisharp-mode) ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; org-babel
 
 (use-package ob-fsharp
   :load-path "site-lisp/")
-
-;; org-babel
 
 (org-babel-do-load-languages
  'org-babel-load-languages

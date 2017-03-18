@@ -9,9 +9,10 @@
 
 ;; Theme
 ;; Load and Set the colour theme
-(use-package zenburn-theme :ensure t)
-(load-theme 'zenburn t)
-
+(use-package zenburn-theme
+  :ensure t
+  :config
+  (load-theme 'zenburn t))
 
 ;; Do not blink the cursor
 (blink-cursor-mode -1)
@@ -29,31 +30,5 @@
 ;; Turn off the beep completely
 (setq ring-bell-function 'ignore)
 
-;; TODO Move to hydra
-;; ;; Easy zoom-in and zoom-out via <f2>g & <f2>l
-;; ;; via http://oremacs.com/2015/01/14/repeatable-commands/
-;; (defun def-rep-command (alist)
-;;   "Return a lambda that calls the first function of ALIST.
-;; It sets the transient map to all functions of ALIST."
-;;   (lexical-let ((keymap (make-sparse-keymap))
-;;                 (func (cdar alist)))
-;;     (mapc (lambda (x)
-;;             (define-key keymap (car x) (cdr x)))
-;;           alist)
-;;     (lambda (arg)
-;;       (interactive "p")
-;;       (funcall func arg)
-;;       (set-transient-map keymap t))))
-
-;; (global-set-key (kbd "<f2> g")
-;;                 (def-rep-command
-;;                     '(("g" . text-scale-increase)
-;;                       ("l" . text-scale-decrease))))
-;; (global-set-key (kbd "<f2> l")
-;;                 (def-rep-command
-;;                     '(("l" . text-scale-decrease)
-;;                       ("g" . text-scale-increase))))
-
 (require 'diminish nil t)
-
 (provide 'appearance)
