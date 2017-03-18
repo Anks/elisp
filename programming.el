@@ -70,7 +70,12 @@
   (add-to-list 'company-backends 'company-tern))
 
 (use-package json-mode
-  :ensure t)
+  :ensure t
+  :mode "\\.json'")
+
+(use-package yaml-mode
+  :ensure t
+  :mode "\\.yml'")
 
 ;;;;;;;;; F#
 
