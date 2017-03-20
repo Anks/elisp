@@ -30,6 +30,29 @@
 (use-package csv-mode
   :ensure t)
 
+
+;; enable history of recent files
+(recentf-mode t)
+
+(use-package deft
+  :ensure t
+
+  :config
+  (setq deft-extensions '("txt" "md" "markdown" "org")
+        deft-default-extension "org"
+        deft-directory "~/Dropbox/deft")
+
+  ;; Customise deft to remove file-vars from the titile line.
+  ;; I like using org-mode in some long-form files, but deft displays the
+  ;; file vars (-*- mode: org; -*-) in the title.
+  ;; This custom function strips the file vars and gives a clean title.
+  (defun deft-title-fn-strip-file-vars (str)
+    (replace-regexp-in-string "-\\*-.*-\\*-" "" (deft-strip-title str)))
+  (setq deft-parse-title-function 'deft-title-fn-strip-file-vars)
+
+  :bind (([f8] . deft)))
+
+
 ;;;;;;;;;;;;;; Smart quotes  ;;;;;;;;;;;;;;
 
 ;; Ongoing : http://www.tbray.org/ongoing/When/200x/2003/09/27/UniEmacs
