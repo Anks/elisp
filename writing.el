@@ -1,5 +1,12 @@
 ;;; Writing & General Text Editing related hacks
 
+;; Spell checking
+(use-package flyspell
+  :diminish flyspell-mode
+  :config
+  (add-hook 'text-mode-hook 'flyspell-mode)
+  (add-hook 'org-mode-hook 'flyspell-mode))
+
 ;; Provide *magic* expansion for text ;
 (global-set-key "\M- " 'hippie-expand)
 
