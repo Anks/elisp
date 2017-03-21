@@ -10,13 +10,25 @@
 ;; Use "Fira Code" as the default font
 ;; 'light' weight looks best on mac
 (set-frame-font "Fira Code-14:light")
-;; Set some face attributes. This is not yet what I want.
-;; I want to remove bold where possible.
-(set-face-attribute 'default nil :font "Fira Code-14:light")             ;; default
+(set-face-attribute 'default nil :font "Fira Code-14:light")             ;; default face
+
+;; Disables bold in mode line
 (set-face-attribute 'mode-line nil :font "Fira Code-14:light")
 (set-face-attribute 'mode-line-emphasis nil :font "Fira Code-14:light")  ;; Mode line should not be too bold
 (set-face-attribute 'mode-line-buffer-id nil :font "Fira Code-14:light") ;; Mode line should not be too bold
 
+;; Via http://stackoverflow.com/a/20693389
+;; Disables bold in minibuffer
+(progn
+  (defun remap-faces-default-attributes ()
+    (let ((family (face-attribute 'default :family)))
+      (mapcar (lambda (face)
+                (face-remap-add-relative
+                 face :family family :weight 'light))
+              (face-list))))
+
+  (when (display-graphic-p)
+    (add-hook 'minibuffer-setup-hook 'remap-faces-default-attributes)))
 
 ;; This is specific to the mituharu/emacs-mac port
 ;; Enables fira code's ligatures
