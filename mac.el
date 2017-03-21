@@ -1,8 +1,3 @@
-;; change command to meta, and ignore option to use weird Norwegian keyboard
-(setq ns-alternate-modifier 'super)
-(setq ns-command-modifier 'meta)
-(setq ns-function-modifier 'hyper)
-
 ;; Move to trash when deleting stuff
 (setq delete-by-moving-to-trash t
       trash-directory "~/.Trash/emacs")
