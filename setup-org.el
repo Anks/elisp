@@ -16,10 +16,19 @@
 ;;; Export options
 (setq org-export-html-postamble nil)
 
+;;; TODO States
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+
+(setq org-todo-keyword-faces
+      '(("WAIT" . "yellow")))
+
 ;;; Configure org-capture
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Tasks")
-         "* TODO %?\n  %i\n SCHEDULED %t")
+         "* TODO %?\n  %i\n SCHEDULED: %t")
+        ("d" "Deadline" entry (file+headline "~/Dropbox/org/notes.org" "Tasks")
+         "* TODO %?\n  %i\n DEADLINE: %t")
         ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")))
 
