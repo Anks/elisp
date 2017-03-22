@@ -7,6 +7,8 @@
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'org-mode-hook 'flyspell-mode))
 
+(setq ispell-dictionary "british")
+
 ;; Provide *magic* expansion for text ;
 (global-set-key "\M- " 'hippie-expand)
 
@@ -40,6 +42,7 @@
 
 ;; enable history of recent files
 (recentf-mode t)
+(setq recentf-max-saved-items 2000)
 
 (use-package deft
   :ensure t
