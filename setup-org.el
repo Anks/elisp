@@ -8,20 +8,27 @@
 (setq org-agenda-files (list org-directory))
 
 ;;; Behaviour customization
-(setq org-hide-leading-stars 't)
 (setq org-special-ctrl-a 't)
 (setq org-special-ctrl-e 't)
 (setq org-return-follows-link 't)
+
+;; hiding stars does not play well with Fira code ligatures
+;; So using org-bullets instead
+(setq org-hide-leading-stars nil)
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;;; Export options
 (setq org-export-html-postamble nil)
 
 ;;; TODO States
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
+      '((sequence "TODO(t)" "WAIT(w@/!)" "ONIT(o@/!)" "|" "DONE(d!)" "CANCELED(c@)")))
 
 (setq org-todo-keyword-faces
-      '(("WAIT" . "yellow")))
+      '(("WAIT" . "yellow") ("ONIT" . "ORANGE")))
 
 ;;; Configure org-capture
 (setq org-capture-templates
