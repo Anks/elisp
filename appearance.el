@@ -36,6 +36,9 @@
 (if (fboundp 'mac-auto-operator-composition-mode)
     (mac-auto-operator-composition-mode))
 
+;; Thin cursors
+(setq-default cursor-type 'bar)
+
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 

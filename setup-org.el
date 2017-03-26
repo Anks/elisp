@@ -58,5 +58,8 @@
 ;;           (org-capture)))
 
 
+;; org-babel
+(setq org-src-fontify-natively t)
+
 ;; Exports
 (provide 'setup-org)
