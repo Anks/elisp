@@ -7,6 +7,19 @@
   (add-hook 'text-mode-hook 'flyspell-mode)
   (add-hook 'org-mode-hook 'flyspell-mode))
 
+(use-package pandoc-mode
+  :ensure t
+  :config
+  ;; Enable pandoc mode for org and markdown files
+  (add-hook 'markdown-mode-hook 'pandoc-mode)
+  (add-hook 'org-mode-hook 'pandoc-mode)
+
+  ;; Unbind the default keybinding: C-c / is org-sparse-tree in org mode
+  (define-key pandoc-mode-map (kbd "C-c /") nil)
+
+  ;; Set C-c p to run pandoc
+  :bind (("C-c p" . pandoc-main-hydra/body)))
+
 (setq ispell-dictionary "british")
 
 ;; Provide *magic* expansion for text ;
