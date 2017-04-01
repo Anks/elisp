@@ -34,6 +34,9 @@
 (setq save-place-file (concat user-emacs-directory "places"))
 (save-place-mode 1)
 
+;; savehist
+(savehist-mode 't)
+
 ;; Use F5 to refresh buffer
 (global-set-key (kbd "<f5>") 'revert-buffer)
 

@@ -6,3 +6,4 @@ elpa
 .emacs.d/smex-items
 .emacs.d/url
 .emacs.d/bookmarks
+.emacs.d/history
