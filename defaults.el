@@ -43,4 +43,9 @@
 ;; Prevent stale bytecode from being loaded
 (setq load-prefer-newer t)
 
+;; Echo timing after everything is loaded
+(add-hook 'after-init-hook
+          (lambda ()
+            (message "Emacs initialized in %s" (emacs-init-time))))
+
 (provide 'defaults)
