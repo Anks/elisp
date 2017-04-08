@@ -47,6 +47,12 @@
 ;; Prevent stale bytecode from being loaded
 (setq load-prefer-newer t)
 
+;; Enable things that are disabled by default
+(put 'set-goal-column 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+
 ;; Echo timing after everything is loaded
 (add-hook 'after-init-hook
           (lambda ()
