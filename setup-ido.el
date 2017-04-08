@@ -36,4 +36,11 @@
 (add-to-list 'ido-ignore-directories "target")
 (add-to-list 'ido-ignore-directories "node_modules")
 
+(use-package ido-vertical-mode
+  :ensure t
+  :config
+  (setq ido-use-faces t)
+  (ido-vertical-mode 1)
+  (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right))
+
 (provide 'setup-ido)
