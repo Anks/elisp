@@ -4,7 +4,7 @@
 ;;; Directory / File setup
 (setq org-directory "~/Dropbox/org")
 (setq org-default-notes-file "~/Dropbox/org/notes.org")
-(setq org-archive-location "~/Dropbox/org/.archive")
+(setq org-archive-location "~/Dropbox/org/archive.org::datetree/")
 (setq org-agenda-files (list org-directory))
 
 ;;; Behaviour customization
