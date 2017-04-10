@@ -39,6 +39,10 @@
         ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")))
 
+;; Via https://github.com/jkitchin/jmax/blob/master/org/org-show.org
+;; Also see https://www.youtube.com/watch?v=JZ8RK-R9O_g
+(require 'org-show)
+
 ;; Key Bindings
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cl" 'org-store-link)
