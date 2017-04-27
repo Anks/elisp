@@ -41,7 +41,8 @@
 
 ;; Via https://github.com/jkitchin/jmax/blob/master/org/org-show.org
 ;; Also see https://www.youtube.com/watch?v=JZ8RK-R9O_g
-(require 'org-show)
+;; Do not automatically load. Load only when required
+;; (require 'org-show)
 
 ;; Key Bindings
 (global-set-key "\C-cc" 'org-capture)
