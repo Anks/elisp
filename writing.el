@@ -60,17 +60,6 @@
 (use-package csv-mode
   :ensure t)
 
-;; Olivetti
-(use-package olivetti
-  :ensure olivetti
-  :config
-  (setf olivetti-body-width 80)
-  (visual-line-mode)
-
-  ;; This is not working -- need to check
-  ;;(add-hook 'deft-open-file-hook 'olivetti-mode)
-  )
-
 ;; enable history of recent files
 (recentf-mode t)
 (setq recentf-max-saved-items 2000)
@@ -93,6 +82,24 @@
 
   :bind (([f8] . deft)))
 
+
+;; Olivetti
+(use-package olivetti
+  :ensure olivetti
+  :config
+  (setf olivetti-body-width 80)
+  (visual-line-mode)
+
+  ;; This is not working -- need to check
+  ;;(add-hook 'deft-open-file-hook 'olivetti-mode)
+  )
+
+(use-package writegood-mode
+  :ensure t
+  :defer t
+  :init
+  (add-hook 'org-mode-hook 'writegood-mode)
+  (add-hook 'markdown-mode-hook 'writegood-mode))
 
 ;;;;;;;;;;;;;; Smart quotes  ;;;;;;;;;;;;;;
 
