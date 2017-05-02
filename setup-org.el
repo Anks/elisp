@@ -33,9 +33,9 @@
 ;;; Configure org-capture
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Tasks")
-         "* TODO %?\n  %i\n  SCHEDULED: %t")
+         "* TODO %?\n  SCHEDULED: %t\n  %i")
         ("d" "Deadline" entry (file+headline "~/Dropbox/org/notes.org" "Tasks")
-         "* TODO %?\n  %i\n  DEADLINE: %t")
+         "* TODO %?\n  DEADLINE: %t\n  %i")
         ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")))
 
