@@ -4,6 +4,11 @@
 
 ;; Clean up things before we start customising
 (require 'defaults)
+
+;; Local config (not to be committed publicly)
+(if (file-exists-p "~/opt/elisp/local.el")
+    (require 'local))
+
 ;; ido all the things
 (require 'setup-ido)
 

@@ -7,3 +7,4 @@ elpa
 .emacs.d/url
 .emacs.d/bookmarks
 .emacs.d/history
+local.el
