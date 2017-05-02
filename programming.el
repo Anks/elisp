@@ -22,6 +22,13 @@
   (add-hook 'sgml-mode-hook 'emmet-mode)  ;; Auto-start on any markup modes
   (add-hook 'css-mode-hook  'emmet-mode)  ;; enable Emmet's css abbreviation.
   ;; (setq emmet-expand-jsx-className? t) ;;  TODO enable this only for react projects
+  ;; Remind myself to use emmet
+  (defun anks-emmet-reminder ()
+    (message "emmet-mode enabled. Use C-j!"))
+
+  (add-hook 'sgml-mode-hook 'anks-emmet-reminder)
+  (add-hook 'css-mode-hook 'anks-emmet-reminder)
+
   )
 
 ;;; Auto complete using company mode
