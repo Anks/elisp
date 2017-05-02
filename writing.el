@@ -18,7 +18,7 @@
   (define-key pandoc-mode-map (kbd "C-c /") nil)
 
   ;; Set C-c p to run pandoc
-  :bind (("C-c p" . pandoc-main-hydra/body)))
+  :bind (("C-c e" . pandoc-main-hydra/body)))
 
 (setq ispell-dictionary "british")
 

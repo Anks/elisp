@@ -8,3 +8,4 @@ elpa
 .emacs.d/bookmarks
 .emacs.d/history
 local.el
+projectile-bookmarks.eld

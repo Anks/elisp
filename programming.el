@@ -49,6 +49,11 @@
 
 ;;;;;;;;;;;;;;;;;;;;;; Language specific modes
 
+;; projectile
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-global-mode))
 
 ;; xml-mode
 (autoload 'nxml-mode "nxml-mode" nil t)
