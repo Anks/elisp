@@ -52,6 +52,7 @@
 ;; projectile
 (use-package projectile
   :ensure t
+  :diminish projectile-mode
   :config
   (projectile-global-mode))
 
@@ -72,7 +73,10 @@
 (use-package js2-refactor
   :ensure t
   :init
+  (defun anks-js2-reminder ()
+    (message "js2-refactor prefixed by C-c C-m"))
   (add-hook 'js2-mode-hook #'js2-refactor-mode)
+  (add-hook 'js2-mode-hook 'anks-js2-reminder)
   :config 
   (js2r-add-keybindings-with-prefix "C-c C-m")
   ;; eg. extract function with `C-c C-m ef`.
@@ -107,14 +111,18 @@
   (setq inferior-fsharp-program "/usr/local/bin/fsharpi --readline-")
   (setq fsharp-compiler "/usr/local/bin/fsharpc"))
 
+;;;;;; Restclient
 
-;; temporary hack for cases when not modifying whitespace is important
-;; (defun delete-trailing-whitespace ()
-;;   (interactive))
-;; (setq standard-indent 8)
-;; (setq-default indent-tabs-mode 1)
-;; (defun untabify (start end)
-;;   (interactive))
+(use-package restclient
+  :ensure t)
+
+(use-package ob-restclient
+  :ensure t)
+
+(use-package company-restclient
+  :ensure t
+  :init
+  (add-to-list 'company-backends 'company-restclient))
 
 ;; org-babel
 
@@ -126,7 +134,8 @@
  '((python . t)
    (emacs-lisp . t)
    (fsharp . t)
-   (js . t)))
+   (js . t)
+   (restclient . t)))
 
 (setq org-babel-python-command "python3")
 
