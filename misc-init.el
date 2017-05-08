@@ -1,3 +1,18 @@
+;; https://www.masteringemacs.org/article/discoverel-discover-emacs-context-menus
+(use-package discover
+  :ensure t
+  :config
+  (global-discover-mode t))
+
+(use-package hardcore-mode
+  :ensure t
+  :init
+  (setq too-hardcore-backspace t)
+  (setq too-hardcore-return t)
+  :config
+  (global-hardcore-mode))
+
+
 ;; ========== Place Backup Files in Specific Directory ==========
 (setq make-backup-files t)
 (setq version-control t)
