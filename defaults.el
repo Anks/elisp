@@ -41,9 +41,6 @@
 ;; savehist
 (savehist-mode 't)
 
-;; Use F5 to refresh buffer
-(global-set-key (kbd "<f5>") 'revert-buffer)
-
 ;; Prevent stale bytecode from being loaded
 (setq load-prefer-newer t)
 

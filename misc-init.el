@@ -12,6 +12,8 @@
   :config
   (global-hardcore-mode))
 
+;; Use F5 to refresh buffer
+(bind-key "<f5>" 'revert-buffer)
 
 ;; ========== Place Backup Files in Specific Directory ==========
 (setq make-backup-files t)

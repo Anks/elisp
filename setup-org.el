@@ -45,9 +45,9 @@
 ;; (require 'org-show)
 
 ;; Key Bindings
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
+(bind-key "C-c c" 'org-capture)
+(bind-key "C-c l" 'org-store-link)
+(bind-key "C-c a" 'org-agenda)
 
 ;; TODO Figure out a good way to start a org-caputre workflow with fullscreen emacs
 ;; (use-package noflet

@@ -23,7 +23,7 @@
 (setq ispell-dictionary "british")
 
 ;; Provide *magic* expansion for text ;
-(global-set-key "\M- " 'hippie-expand)
+(bind-key "M-/" 'hippie-expand)
 
 ;; ws-butler for trimming extra whitespace
 (use-package ws-butler
@@ -155,6 +155,6 @@
    ((= c ?`) (insert "`"))
    ((= c ?.) (insert-char #x002026))))
 
-(global-set-key "`" 'ong-insert-special)
+(bind-key "`" 'ong-insert-special)
 
 (provide 'writing)
