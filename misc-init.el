@@ -40,6 +40,12 @@
   :config
   (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode)))
 
+(use-package flycheck-ledger
+  :ensure t
+  :config
+  (eval-after-load 'flycheck
+  '(require 'flycheck-ledger)))
+
 ;; ==== Load other libraries ====
 
 ;; spell check

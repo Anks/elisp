@@ -47,14 +47,21 @@
 ;(require 'yasnippet)
 ;(yas-global-mode 1)
 
-;;;;;;;;;;;;;;;;;;;;;; Language specific modes
-
 ;; projectile
 (use-package projectile
   :ensure t
   :diminish projectile-mode
   :config
+  (use-package ag
+    :ensure t)
   (projectile-global-mode))
+
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'after-init-hook #'global-flycheck-mode))
+
+;;;;;;;;;;;;;;;;;;;;;; Language specific modes
 
 ;; xml-mode
 (autoload 'nxml-mode "nxml-mode" nil t)
