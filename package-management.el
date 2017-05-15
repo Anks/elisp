@@ -15,4 +15,7 @@
 (use-package try
   :ensure t)
 
+(use-package hydra
+  :ensure t)
+
 (provide 'package-management)

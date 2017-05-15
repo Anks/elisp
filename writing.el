@@ -101,60 +101,67 @@
   (add-hook 'org-mode-hook 'writegood-mode)
   (add-hook 'markdown-mode-hook 'writegood-mode))
 
-;;;;;;;;;;;;;; Smart quotes  ;;;;;;;;;;;;;;
+(defun anks/uni-insert (name)
+  "Insert a unicode character by NAME."
+  (insert-char (cdr (assoc-string name (ucs-names)))))
 
-;; Ongoing : http://www.tbray.org/ongoing/When/200x/2003/09/27/UniEmacs
-;; Easy Insertion of Commonly-Used Special Characters
+(defvar anks/unicode-toggle-state-hash
+  (make-hash-table :test 'equal))
 
-(defun one-quote () "" (interactive) (insert ?'))
-(defvar sq-state 'nil "In single-quotes?")
-(defvar dq-state 'nil "In double quotes?")
-(defun ong-insert-special (c)
-  "Insert special characters, like so:
- s => open/close single quotes
- d => open/close double quotes
- ' => apostrophe
- a => <a href=
- i => <img src=
- & => &amp;
- < => &lt;
- - => mdash
- . => horizontal ellipses"
-  (interactive "c" "'")
-  (cond
-   ((= c ?s)
-    (if sq-state
-        (progn
-          (insert-char #x2019)
-          (setq sq-state 'nil))
-      (insert-char #x2018)
-      (setq sq-state 't)))
-   ((= c ?d)
-    (if dq-state
-        (progn
-          (insert-char #x201d)
-          (setq dq-state 'nil))
-      (insert-char #x201c)
-      (setq dq-state 't)))
-   ((= c ?') (insert-char #x2019))
-   ((= c ?a)
-    (progn
-      (if (> (current-column) 0) (newline-and-indent))
-      (insert "<a href=\"\">")
-      (backward-char 2)
-      ))
-   ((= c ?i)
-    (progn
-      (if (> (current-column) 0) (newline-and-indent))
-      (insert "<img src=\"\" alt=\"\" />")
-      (backward-char 11)
-      ))
-   ((= c ?&) (insert "&amp;"))
-   ((= c ?<) (insert "&lt;"))
-   ((= c ?-) (insert-char #x2014))
-   ((= c ?`) (insert "`"))
-   ((= c ?.) (insert-char #x002026))))
+(defun anks/insert-char-toggle (char1 char2)
+  "Toggle-insert. Insert CHAR1 or CHAR2 into buffer each time it's called."
+  (let
+      ((hash-key (concat char1 char2)))
+    (let ((hash-value (gethash hash-key anks/unicode-toggle-state-hash)))
+      (if (not hash-value)
+          (anks/uni-insert char1)
+        (anks/uni-insert char2))
+      (puthash hash-key (not hash-value) anks/unicode-toggle-state-hash))))
 
-(bind-key "`" 'ong-insert-special)
+
+(defhydra hydra-anks/insert-unicode (:hint nil :color blue)
+  "
+_-_ Em dash        _s_ Single quote, toggle     _<up>_ Thumbs up
+_=_ En dash        _d_ Double quote, toggle     _<down>_ Thumbs down
+_._ Ellipsis       _'_ Curly apostrophe
+
+_1_ Superscript 1  _x_ Multiplication sign
+_2_ Superscript 2  _c_ Check Mark
+  …                _b_ Bullet
+
+  "
+
+  ("`" (anks/uni-insert "GRAVE ACCENT"))
+  ("-" (anks/uni-insert "EM DASH"))
+  ("=" (anks/uni-insert "EN DASH"))
+  ("." (anks/uni-insert "HORIZONTAL ELLIPSIS"))
+  ("x" (anks/uni-insert "MULTIPLICATION SIGN"))
+  ("'" (anks/uni-insert "RIGHT SINGLE QUOTATION MARK")) ;; iffy
+  ("c" (anks/uni-insert "CHECK MARK"))
+  ("b" (anks/uni-insert "BULLET"))
+
+  ("s" (anks/insert-char-toggle
+        "LEFT SINGLE QUOTATION MARK"
+        "RIGHT SINGLE QUOTATION MARK"))
+  ("d" (anks/insert-char-toggle
+        "LEFT DOUBLE QUOTATION MARK"
+        "RIGHT DOUBLE QUOTATION MARK"))
+
+  ("1" (anks/uni-insert "SUPERSCRIPT DIGIT ONE"))
+  ("2" (anks/uni-insert "SUPERSCRIPT DIGIT TWO"))
+  ("3" (anks/uni-insert "SUPERSCRIPT DIGIT THREE"))
+  ("4" (anks/uni-insert "SUPERSCRIPT DIGIT FOUR"))
+  ("5" (anks/uni-insert "SUPERSCRIPT DIGIT FIVE"))
+  ("6" (anks/uni-insert "SUPERSCRIPT DIGIT SIX"))
+  ("7" (anks/uni-insert "SUPERSCRIPT DIGIT SEVEN"))
+  ("8" (anks/uni-insert "SUPERSCRIPT DIGIT EIGHT"))
+  ("9" (anks/uni-insert "SUPERSCRIPT DIGIT NINE"))
+
+  ("<up>"   (anks/uni-insert "THUMBS UP SIGN"))
+  ("<down>" (anks/uni-insert "THUMBS DOWN SIGN"))
+  )
+
+
+(bind-key "`" 'hydra-anks/insert-unicode/body)
 
 (provide 'writing)
