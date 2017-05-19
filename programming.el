@@ -61,6 +61,10 @@
   :config
   (add-hook 'after-init-hook #'global-flycheck-mode))
 
+(use-package magit
+  :ensure t
+  :bind (("C-c g" . magit-status)))
+
 ;;;;;;;;;;;;;;;;;;;;;; Language specific modes
 
 ;; xml-mode
