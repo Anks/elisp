@@ -45,12 +45,6 @@
 ;;; Highlights the current cursor line
 (global-hl-line-mode t)
 
-;;; visible-mark
-(use-package visible-mark
-  :ensure t
-  :config
-  (global-visible-mark-mode 1))
-
 ;; Do not blink the cursor
 (blink-cursor-mode -1)
 

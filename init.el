@@ -10,15 +10,16 @@
     (require 'local))
 
 ;; ido all the things
-(require 'setup-ido)
+;;(require 'setup-ido)
 
 ;; For configuring third party packages
 (require 'package-management)
-
 (require 'appearance)
 (require 'mac)
 
-(require 'setup-smex)
+(require 'setup-abo-packages)
+
+;; (require 'setup-smex)
 (require 'setup-org)
 
 (require 'writing)
@@ -26,3 +27,5 @@
 
 ;; All other init
 (require 'misc-init)
+
+

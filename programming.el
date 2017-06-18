@@ -2,6 +2,7 @@
 (setq indent-tabs-mode nil)
 (setq-default indent-tabs-mode nil)
 
+(setq-default ediff-window-setup-function 'ediff-setup-windows-plain)
 ;; Set the tab width
 (setq tab-width 4)
 (setq c-basic-indent 4)
@@ -54,7 +55,8 @@
   :config
   (use-package ag
     :ensure t)
-  (projectile-global-mode))
+  (projectile-global-mode)
+  (setq projectile-completion-system 'ivy))
 
 (use-package flycheck
   :ensure t
@@ -132,7 +134,7 @@
 
 (use-package company-restclient
   :ensure t
-  :init
+  :config
   (add-to-list 'company-backends 'company-restclient))
 
 ;; org-babel

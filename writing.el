@@ -97,6 +97,7 @@
 (use-package writegood-mode
   :ensure t
   :defer t
+  :diminish writegood-mode
   :init
   (add-hook 'org-mode-hook 'writegood-mode)
   (add-hook 'markdown-mode-hook 'writegood-mode))
@@ -125,10 +126,10 @@ _-_ Em dash        _s_ Single quote, toggle     _<up>_ Thumbs up
 _=_ En dash        _d_ Double quote, toggle     _<down>_ Thumbs down
 _._ Ellipsis       _'_ Curly apostrophe
 
-_1_ Superscript 1  _x_ Multiplication sign
+_1_ Superscript 1  _x_ Multiplication sign      _u_ Insert unicode symbol by name
 _2_ Superscript 2  _c_ Check Mark
-  …                _b_ Bullet
-
+_3_ Superscript 3  _b_ Bullet
+  …                _r_ Indian Rupee
   "
 
   ("`" (anks/uni-insert "GRAVE ACCENT"))
@@ -139,6 +140,8 @@ _2_ Superscript 2  _c_ Check Mark
   ("'" (anks/uni-insert "RIGHT SINGLE QUOTATION MARK")) ;; iffy
   ("c" (anks/uni-insert "CHECK MARK"))
   ("b" (anks/uni-insert "BULLET"))
+  ("r" (anks/uni-insert "INDIAN RUPEE SIGN"))
+  ("u" counsel-unicode-char)
 
   ("s" (anks/insert-char-toggle
         "LEFT SINGLE QUOTATION MARK"

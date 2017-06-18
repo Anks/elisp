@@ -6,6 +6,7 @@
 
 (use-package hardcore-mode
   :ensure t
+  :diminish hardcore-mode
   :init
   (setq too-hardcore-backspace t)
   (setq too-hardcore-return t)
@@ -20,20 +21,6 @@
 (setq version-control t)
 (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/.backups/"))))
 (setq delete-old-versions t)
-
-;; ===== Make Text mode the default mode for new buffers =====
-(setq major-mode 'text-mode)
-
-;; ====== Add enhancements, remove annoyances ======
-
-;; isearch + occur
-(defun isearch-occur ()
-  "Invoke `occur' from within isearch."
-  (interactive)
-  (let ((case-fold-search isearch-case-fold-search))
-    (occur (if isearch-regexp isearch-string (regexp-quote isearch-string)))))
-
-(define-key isearch-mode-map (kbd "C-o") 'isearch-occur)
 
 ;; ==== Ledger mode ===
 
