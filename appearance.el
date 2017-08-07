@@ -2,10 +2,10 @@
 
 ;; Theme
 ;; Load and Set the colour theme
-(use-package zenburn-theme
+(use-package darktooth-theme
   :ensure t
   :config
-  (load-theme 'zenburn t))
+  (load-theme 'darktooth t))
 
 ;; Use "Fira Code" as the default font
 ;; 'light' weight looks best on mac
