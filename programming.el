@@ -44,6 +44,11 @@
   :config
   (company-quickhelp-mode 1))
 
+
+;; Terraform
+(use-package terraform-mode
+  :ensure t)
+
 ;; YASnippet
 ;(require 'yasnippet)
 ;(yas-global-mode 1)
