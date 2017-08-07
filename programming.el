@@ -129,6 +129,13 @@
   (setq inferior-fsharp-program "/usr/local/bin/fsharpi --readline-")
   (setq fsharp-compiler "/usr/local/bin/fsharpc"))
 
+;;;; EditorConfig
+(use-package editorconfig
+  :diminish editorconfig-mode
+  :ensure t
+  :config
+  (editorconfig-mode 1))
+
 ;;;;;; Restclient
 
 (use-package restclient
