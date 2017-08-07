@@ -120,7 +120,7 @@
       (puthash hash-key (not hash-value) anks/unicode-toggle-state-hash))))
 
 
-(defhydra hydra-anks/insert-unicode (:hint nil :color blue)
+(defhydra hydra-anks/insert-unicode (:hint nil :color blue :idle 0.5)
   "
 _-_ Em dash        _s_ Single quote, toggle     _<up>_ Thumbs up
 _=_ En dash        _d_ Double quote, toggle     _<down>_ Thumbs down
