@@ -13,6 +13,14 @@
 (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/.backups/"))))
 (setq delete-old-versions t)
 
+;; === Helpful ===
+
+(use-package helpful :ensure t
+  :bind
+  ("C-h f" . helpful-function)
+  ("C-h v" . helpful-variable))
+
+
 ;; ==== Ledger mode ===
 
 (use-package ledger-mode
