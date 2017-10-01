@@ -2,10 +2,19 @@
 
 ;; Theme
 ;; Load and Set the colour theme
-(use-package darktooth-theme
+;; (use-package darktooth-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'darktooth t))
+
+(use-package tao-theme
   :ensure t
   :config
-  (load-theme 'darktooth t))
+  (load-theme 'tao-yin t)
+  (use-package color-identifiers-mode
+    :ensure t
+    :config
+    (global-color-identifiers-mode)))
 
 ;; Use "Fira Code" as the default font
 ;; 'light' weight looks best on mac
