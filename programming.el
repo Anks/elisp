@@ -63,10 +63,10 @@
   (projectile-global-mode)
   (setq projectile-completion-system 'ivy))
 
-(use-package flycheck
-  :ensure t
-  :config
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+;; (use-package flycheck
+;;   :ensure t
+;;   :config
+;;   (add-hook 'after-init-hook #'global-flycheck-mode))
 
 (use-package magit
   :ensure t
