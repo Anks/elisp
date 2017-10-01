@@ -4,15 +4,6 @@
   :config
   (global-discover-mode t))
 
-(use-package hardcore-mode
-  :ensure t
-  :diminish hardcore-mode
-  :init
-  (setq too-hardcore-backspace t)
-  (setq too-hardcore-return t)
-  :config
-  (global-hardcore-mode))
-
 ;; Use F5 to refresh buffer
 (bind-key "<f5>" 'revert-buffer)
 

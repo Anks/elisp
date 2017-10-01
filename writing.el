@@ -94,14 +94,6 @@
   ;;(add-hook 'deft-open-file-hook 'olivetti-mode)
   )
 
-(use-package writegood-mode
-  :ensure t
-  :defer t
-  :diminish writegood-mode
-  :init
-  (add-hook 'org-mode-hook 'writegood-mode)
-  (add-hook 'markdown-mode-hook 'writegood-mode))
-
 (defun anks/uni-insert (name)
   "Insert a unicode character by NAME."
   (insert-char (cdr (assoc-string name (ucs-names)))))
