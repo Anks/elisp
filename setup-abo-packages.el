@@ -27,9 +27,9 @@
   ("C-c k"   . counsel-ag)
   ("C-c i"   . counsel-imenu))
 
-(use-package swiper
-  :ensure t
-  :bind
-  ("C-s" . swiper))
+;; (use-package swiper
+;;   :ensure t
+;;   :bind
+;;   ("C-s" . swiper))
 
 (provide 'setup-abo-packages)
