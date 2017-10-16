@@ -10,9 +10,7 @@
 
 (use-package color-identifiers-mode
   :ensure t
-  :defer t
-  :config
-  (global-color-identifiers-mode))
+  :defer t)
 
 ;; Use "Fira Code" as the default font
 ;; 'light' weight looks best on mac
