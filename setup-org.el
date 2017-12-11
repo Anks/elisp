@@ -20,6 +20,12 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
+;; Install org-present for interactive presentations. Do not hook it up
+;; with anything (manually launch with M-x org-present)
+(use-package org-present
+  :defer t
+  :ensure t)
+
 ;;; Export options
 (setq org-export-html-postamble nil)
 

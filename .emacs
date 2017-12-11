@@ -19,7 +19,7 @@
  '(inhibit-startup-echo-area-message "ankit")
  '(package-selected-packages
    (quote
-    (color-identifiers-mode tao-theme helpful editorconfig edit-indirect terraform-mode suggest org ivy-hydra avy counsel ivy magit ag flycheck-ledger hardcore-mode discover company-restclient ob-restclient restclient writegood-mode projectile ido-vertical-mode ido-vertical ws-butler hydra pandoc-mode ox-pandoc visible-mark org-bullets emmet-mode yaml-mode aggressive-indent ob-fsharp smartparens json-mode markdown-mode fsharp-mode ledger-mode hungry-delete auto-complete expand-region js2-mode multiple-cursors zenburn-theme which-key use-package try smex deft))))
+    (org-present color-identifiers-mode tao-theme helpful editorconfig edit-indirect terraform-mode suggest org ivy-hydra avy counsel ivy magit ag flycheck-ledger hardcore-mode discover company-restclient ob-restclient restclient writegood-mode projectile ido-vertical-mode ido-vertical ws-butler hydra pandoc-mode ox-pandoc visible-mark org-bullets emmet-mode yaml-mode aggressive-indent ob-fsharp smartparens json-mode markdown-mode fsharp-mode ledger-mode hungry-delete auto-complete expand-region js2-mode multiple-cursors zenburn-theme which-key use-package try smex deft))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
