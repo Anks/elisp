@@ -1,5 +1,9 @@
 ;; Display preferences
 
+;; Enable diminish mode
+(use-package diminish
+  :ensure t)
+
 ;; Theme
 ;; Load and Set the colour theme
 
