@@ -43,7 +43,9 @@
         ("d" "Deadline" entry (file+headline "~/Dropbox/org/notes.org" "Tasks")
          "* TODO %?\n  DEADLINE: %t\n  %i")
         ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
-         "* %?\nEntered on %U\n  %i\n  %a")))
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("b" "Journal" entry (file+olp+datetree "~/Dropbox/org/bonsai.org")
+        "* %?\nEntered on %U\n  %i\n  %a")))
 
 ;; Via https://github.com/jkitchin/jmax/blob/master/org/org-show.org
 ;; Also see https://www.youtube.com/watch?v=JZ8RK-R9O_g
@@ -71,6 +73,12 @@
 
 ;; org-babel
 (setq org-src-fontify-natively t)
+
+;; graphwiz
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((dot . t)))
+
 
 ;; Exports
 (provide 'setup-org)

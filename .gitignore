@@ -9,3 +9,7 @@ elpa
 .emacs.d/history
 local.el
 projectile-bookmarks.eld
+.emacs.d/recentf
+.emacs.d/transient/
+.emacs.d/pandoc-mode/
+.emacs.d/.org-id-locations

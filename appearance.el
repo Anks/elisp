@@ -5,12 +5,8 @@
   :ensure t)
 
 ;; Theme
-;; Load and Set the colour theme
+;; No theme currently, use defaults.
 
-(use-package tao-theme
-  :ensure t
-  :config
-  (load-theme 'tao-yin t))
 
 (use-package color-identifiers-mode
   :ensure t
@@ -18,13 +14,13 @@
 
 ;; Use "Fira Code" as the default font
 ;; 'light' weight looks best on mac
-(set-frame-font "Fira Code-14:light")
-(set-face-attribute 'default nil :font "Fira Code-14:light")             ;; default face
+(set-frame-font "Fira Code-12:light")
+(set-face-attribute 'default nil :font "Fira Code-12:light")             ;; default face
 
 ;; Disables bold in mode line
-(set-face-attribute 'mode-line nil :font "Fira Code-14:light")
-(set-face-attribute 'mode-line-emphasis nil :font "Fira Code-14:light")  ;; Mode line should not be too bold
-(set-face-attribute 'mode-line-buffer-id nil :font "Fira Code-14:light") ;; Mode line should not be too bold
+(set-face-attribute 'mode-line nil :font "Fira Code-12:light")
+(set-face-attribute 'mode-line-emphasis nil :font "Fira Code-12:light")  ;; Mode line should not be too bold
+(set-face-attribute 'mode-line-buffer-id nil :font "Fira Code-12:light") ;; Mode line should not be too bold
 
 ;; Via http://stackoverflow.com/a/20693389
 ;; Disables bold in minibuffer

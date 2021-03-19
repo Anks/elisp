@@ -8,6 +8,10 @@
 (setq c-basic-indent 4)
 
 ;;; Smartparens
+
+(setq show-paren-delay 0)
+(show-paren-mode)
+
 (use-package smartparens
   :ensure t
   :diminish smartparens-mode
@@ -17,6 +21,14 @@
   (use-package smartparens-config))
 
 ;;; Emmet
+
+;; Hide warning for (require 'cl)
+;; Emmet requires 'cl, which is deprecated.
+;; But it hasn't yet been updated to migrate to 'cl-lib
+
+(setq byte-compile-warnings '(cl-functions))
+
+
 (use-package emmet-mode
   :ensure t
   :config
@@ -105,12 +117,6 @@
   :init
   (add-hook 'js-mode-hook  (lambda () (tern-mode t))))
 
-(use-package company-tern
-  :ensure t
-  :after company
-  :init
-  (add-to-list 'company-backends 'company-tern))
-
 (use-package json-mode
   :ensure t
   :mode "\\.json'")
@@ -119,15 +125,6 @@
   :ensure t
   :mode "\\.yml'")
 
-;;;;;;;;; F#
-
-;; TODO Setup autocomplete for F# properly
-(use-package fsharp-mode
-  :ensure t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.fs[iylx]?$" . fsharp-mode))
-  (setq inferior-fsharp-program "/usr/local/bin/fsharpi --readline-")
-  (setq fsharp-compiler "/usr/local/bin/fsharpc"))
 
 ;;;; EditorConfig
 (use-package editorconfig
@@ -151,17 +148,28 @@
 
 ;; org-babel
 
-(use-package ob-fsharp
-  :load-path "site-lisp/")
-
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)
    (emacs-lisp . t)
-   (fsharp . t)
    (js . t)
-   (restclient . t)))
+   (restclient . t))
 
+(setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2017.20/libexec/plantuml.jar")
 (setq org-babel-python-command "python3")
+
+;; Find other file
+(add-hook
+ 'c-mode-common-hook
+ (lambda
+   ()
+   (local-set-key
+    (kbd "C-c o")
+    'ff-find-other-file)))
+
+
+;; eglot mode -- lsp integration
+(use-package eglot
+  :ensure t)
 
 (provide 'programming)

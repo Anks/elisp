@@ -9,7 +9,7 @@
 (setq ns-pop-up-frames nil)
 
 ;; Use aspell for spell checking: brew install aspell --lang=en
-(setq ispell-program-name "/usr/local/bin/aspell")
+(setq ispell-program-name "/opt/homebrew/bin/aspell")
 
 ;; Use mdfind instead of locate
 (setq locate-command "mdfind")

@@ -24,8 +24,10 @@
   :bind
   ("M-x"     . counsel-M-x)
   ("C-x C-f" . counsel-find-file)
-  ("C-c k"   . counsel-ag)
+  ("C-c k"   . counsel-rg)
   ("C-c i"   . counsel-imenu))
+
+(setq counsel-rg-base-command "/opt/homebrew/bin/rg -S --no-heading --line-number --color never %s .")
 
 ;; (use-package swiper
 ;;   :ensure t

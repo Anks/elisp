@@ -70,7 +70,8 @@
   :config
   (setq deft-extensions '("txt" "md" "markdown" "org")
         deft-default-extension "org"
-        deft-directory "~/Dropbox/deft")
+        deft-file-limit 30
+        deft-directory "~/Dropbox/Deft")
 
   ;; Customise deft to remove file-vars from the titile line.
   ;; I like using org-mode in some long-form files, but deft displays the
@@ -79,14 +80,6 @@
   (defun deft-title-fn-strip-file-vars (str)
     (replace-regexp-in-string "-\\*-.*-\\*-" "" (deft-strip-title str)))
   (setq deft-parse-title-function 'deft-title-fn-strip-file-vars)
-
-  ;; Overwrite `deft-current-files` for the `deft-buffer-setup` and limit it to 30 entries
-  (defun anks-deft-limiting-fn (orig-fun &rest args)
-    (let
-        ((deft-current-files (-take 30 deft-current-files)))
-      (apply orig-fun args)))
-
-  (advice-add 'deft-buffer-setup :around #'anks-deft-limiting-fn)
 
   :bind (([f8] . deft)))
 
@@ -104,7 +97,7 @@
 
 (defun anks/uni-insert (name)
   "Insert a unicode character by NAME."
-  (insert-char (cdr (assoc-string name (ucs-names)))))
+  (insert-char (gethash name (ucs-names))))
 
 (defvar anks/unicode-toggle-state-hash
   (make-hash-table :test 'equal))
@@ -112,7 +105,7 @@
 (defun anks/insert-char-toggle (char1 char2)
   "Toggle-insert. Insert CHAR1 or CHAR2 into buffer each time it's called."
   (let
-      ((hash-key (concat char1 char2)))
+a      ((hash-key (concat char1 char2)))
     (let ((hash-value (gethash hash-key anks/unicode-toggle-state-hash)))
       (if (not hash-value)
           (anks/uni-insert char1)
@@ -166,5 +159,11 @@ _3_ Superscript 3  _b_ Bullet
 
 
 (bind-key "`" 'hydra-anks/insert-unicode/body)
+
+
+(defun anks/lipsum ()
+  "Insert lorem ipsum text at current point."
+  (interactive)
+  (insert "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."))
 
 (provide 'writing)
