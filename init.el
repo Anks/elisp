@@ -11,9 +11,6 @@
 (if (file-exists-p "~/opt/elisp/local.el")
     (require 'local))
 
-;; ido all the things
-;;(require 'setup-ido)
-
 ;; For configuring third party packages
 (require 'package-management)
 (require 'appearance)
@@ -21,11 +18,12 @@
 
 (require 'setup-abo-packages)
 
-;; (require 'setup-smex)
 (require 'setup-org)
 
 (require 'writing)
 (require 'programming)
+
+(require 'finances)
 
 ;; All other init
 (require 'misc-init)
