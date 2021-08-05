@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Set default tab settings
 (setq indent-tabs-mode nil)
 (setq-default indent-tabs-mode nil)
@@ -65,21 +67,6 @@
 ;(require 'yasnippet)
 ;(yas-global-mode 1)
 
-;; projectile
-(use-package projectile
-  :ensure t
-  :diminish projectile-mode
-  :config
-  (use-package ag
-    :ensure t)
-  (projectile-global-mode)
-  (setq projectile-completion-system 'ivy))
-
-;; (use-package flycheck
-;;   :ensure t
-;;   :config
-;;   (add-hook 'after-init-hook #'global-flycheck-mode))
-
 (use-package magit
   :ensure t
   :bind (("C-c g" . magit-status)))
@@ -89,33 +76,6 @@
 ;; xml-mode
 (autoload 'nxml-mode "nxml-mode" nil t)
 (defalias 'xml-mode 'nxml-mode)
-
-;; via https://github.com/pkkm/.emacs.d/blob/master/conf/mode-specific/javascript.el
-
-;; Javascript IDE.
-(use-package js2-mode
-  :ensure t
-  :mode ("\\.js\\'" . js2-mode)
-  :config
-  (setq js2-highlight-level 3) ; Highlight many built-in functions.
-  (setq js2-global-externs '("require" "module" "console")))
-
-(use-package js2-refactor
-  :ensure t
-  :init
-  (defun anks-js2-reminder ()
-    (message "js2-refactor prefixed by C-c C-m"))
-  (add-hook 'js2-mode-hook #'js2-refactor-mode)
-  (add-hook 'js2-mode-hook 'anks-js2-reminder)
-  :config 
-  (js2r-add-keybindings-with-prefix "C-c C-m")
-  ;; eg. extract function with `C-c C-m ef`.
-  )
-
-(use-package tern
-  :ensure t
-  :init
-  (add-hook 'js-mode-hook  (lambda () (tern-mode t))))
 
 (use-package json-mode
   :ensure t
@@ -153,9 +113,8 @@
  '((python . t)
    (emacs-lisp . t)
    (js . t)
-   (restclient . t))
+   (restclient . t)))
 
-(setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2017.20/libexec/plantuml.jar")
 (setq org-babel-python-command "python3")
 
 ;; Find other file

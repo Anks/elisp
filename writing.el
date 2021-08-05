@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; Writing & General Text Editing related hacks
 
 ;; Spell checking

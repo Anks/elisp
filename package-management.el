@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; Inspired from Mike Zamansky's config
 
 (require 'package)

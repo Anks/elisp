@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; https://www.masteringemacs.org/article/discoverel-discover-emacs-context-menus
 (use-package discover
   :ensure t
@@ -34,10 +36,11 @@
   (eval-after-load 'flycheck
   '(require 'flycheck-ledger)))
 
+
 ;; ==== Load other libraries ====
 
 ;; spell check
-(setq-default ispell-program-name "aspell")
+(setq ispell-program-name "/opt/homebrew/bin/aspell")
 
 ;; Via http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html
 (defun narrow-or-widen-dwim (p)

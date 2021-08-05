@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Display preferences
 
 ;; Enable diminish mode

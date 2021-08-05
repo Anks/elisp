@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Load all custom settings
 
 (add-to-list 'load-path "~/opt/elisp")
